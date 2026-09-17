@@ -1,0 +1,254 @@
+---
+chapter: 13
+title: "SQL and PostgreSQL as the system of record"
+roadmap_nodes: ["SQL", "PostgreSQL"]
+part: "III — Make the backend and data reliable"
+audio: media/13-sql-and-postgresql.mp3
+voice: en-US-AndrewNeural
+rate: "-15%"
+companion_guide: docs/guides/13-sql-and-postgresql.md
+---
+
+# Chapter 13 — SQL and PostgreSQL as the system of record
+
+[[Spoken narration begins below. Headers and this note are stripped before rendering.]]
+
+## Orientation
+
+Chapter thirteen. This is the chapter where FieldOps Copilot stops forgetting.
+
+Where we stand. You have a secured service: two human roles plus scoped service identities, authentication delegated behind a pluggable boundary, authorisation enforced on every operation and every object, a published contract with generated client types, and rate limits on writes. The React workspace talks to it. And every incident in the system lives in a map in memory, which means that a deployment, a crash, a restart, or an over-eager platform engineer with a scaling policy destroys the customer's operational history.
+
+I asked you at the end of chapter eleven to write down what a customer would call that behaviour. Whatever you wrote is the brief for this chapter.
+
+Here is what you build. A relational model for incidents, operators, status changes, and immutable audit events. Constraints that make invalid states impossible rather than merely unlikely. Migrations written by hand and applied to an empty database. The service's create, list, and get operations moved into transactions. The idempotency key from chapter twelve actually enforced, so a retried submission cannot create a duplicate. And one index, chosen from a real query, with its query plan inspected at a realistic data volume.
+
+That last clause matters: at a realistic volume. A great deal of bad database work comes from testing with twelve rows, where every plan is fast and every mistake is invisible.
+
+By the end of this lesson you should be able to design a schema where the database itself refuses bad data, explain what a transaction does and does not protect you from, implement idempotent creation properly, read a query plan well enough to know whether your index is being used, and write migrations that a customer's database administrator would sign off on.
+
+## What relational modelling actually is
+
+Let me build the concepts, because the vocabulary is precise and precision here saves you from whole categories of defect.
+
+A table is a set of rows, each with the same typed columns. A row is a fact. That framing — a row is an assertion that something is true — is the most useful way to think about schema design, because it turns modelling questions into questions about facts. Should severity live on the incident? Yes, because the severity is a fact about the incident. Should the current status live on the incident? Maybe — because the current status is derived from the sequence of status changes, and now you have a choice to make deliberately.
+
+Types matter more than people from dynamic-language backgrounds expect. A column typed as a timestamp with a time zone cannot hold the word yesterday. A column typed as an integer cannot hold an empty string. Every type you choose correctly is a class of bug that cannot occur, and the database enforces it against every writer — your service today, a script somebody runs next year, and the migration you get wrong at two in the morning.
+
+Then constraints, which are the heart of this chapter. A primary key identifies a row uniquely. A foreign key says this value must refer to an existing row in another table, so you cannot have a status change belonging to an incident that does not exist. A not-null constraint says this fact is required. A unique constraint says this combination may occur only once — and that is the mechanism that will implement idempotency. A check constraint says this value must satisfy a condition, which is where a severity outside your allowed set gets refused. And a default supplies a value when the writer does not.
+
+The mental shift I want to provoke is this: constraints are not duplication of your application's validation. They are a different guarantee. Application validation protects the flow you wrote. Database constraints protect the data from every writer, including the ones you did not anticipate: a colleague's ad-hoc fix, a data migration, an integration built after you left, and your own service with a bug in it. In a customer deployment measured in years, that difference is everything. I have never regretted a constraint I added. I have several times regretted one I left out, and each time the regret took the form of a data-cleanup script and an awkward conversation.
+
+On keys, one decision worth being deliberate about. A natural key is data that already identifies the row, like a customer's own incident reference. A surrogate key is an identifier you generate. Prefer a surrogate primary key generated by you, and note that chapter twelve required identifiers that are not guessable, which rules out a simple counter. Then, separately, add unique constraints on the natural keys that genuinely must be unique. You get stable internal identity and enforced business uniqueness, and you avoid the pain of a natural key that turns out to be mutable — which they always do.
+
+On normalisation, the short version. Do not store the same fact in two places, because the two copies will disagree, and the moment they disagree you cannot tell which is right. Give each fact one home and refer to it. Then, when you have a measured reason — a query that must be fast and cannot be — you may deliberately store a derived copy, and when you do, write down who is responsible for keeping it correct. Deliberate denormalisation is engineering; accidental duplication is decay.
+
+One specific modelling choice for us: severity and impact are closed sets that the customer may want to change. Two options. An enumerated type in the database, which is strict and requires a migration to change. Or a lookup table, which is customer configuration, editable without a code change, and referenced by foreign key. Given chapter six's split and chapter eight's token discussion, the lookup table is the more honest answer for anything the customer owns the vocabulary of — and you should write that reasoning down, because it is a recurring pattern rather than a one-off.
+
+## Modelling history: mutable state and immutable events
+
+Now the design decision that carries the most weight in this chapter.
+
+You have three kinds of data. There is the current state of an incident, which changes. There is the sequence of status changes, which is history. And there is the audit trail, which is evidence.
+
+Model them differently, on purpose.
+
+The incident row holds current state: its fields from intake, its computed priority, its current status, when it was created, when it was last updated. It is updated in place.
+
+Status changes are append-only. Each row records the incident, the previous status, the new status, who made the change, when, and optionally why. You never update these rows and you never delete them. The current status on the incident is then either derived from the latest change or maintained alongside it as a deliberate denormalisation — and if you choose to maintain it, the update to the incident and the insertion of the status change must happen in one transaction, or they will drift.
+
+Audit events are also append-only, and they are broader: authentication outcomes, authorisation denials, configuration changes, administrative actions, and — from chapter nineteen onward — the AI proposals and the operator decisions on them. Each row records who, what, when, on which object, and enough context to reconstruct the event. Crucially, the application's database role should be able to insert audit rows and should not be able to update or delete them. That is a permission, not a convention, and the difference is the entire value of an audit trail. An audit log your service can rewrite is a log that proves nothing, and any competent reviewer will say so.
+
+Two related details. Store timestamps as timestamps with a time zone, generated by the database or the service, never taken from the client — chapter nine already told you the client clock lies. And distinguish when a thing happened from when you recorded it, because for an incident reported by an integration those are different, sometimes by hours, and confusing them will corrupt every duration metric you compute in chapter thirty five.
+
+And one thing to record that engineers routinely forget: the version of the policy that produced a derived value. Your priority was computed by a rule, and that rule will change. If you store a priority with no record of which rule version produced it, then in three months you cannot explain why two similar incidents have different priorities, and you cannot reproduce a historical decision. One small column, enormous later value — and it is the exact same discipline you will apply to prompt versions in chapter sixteen and release manifests in chapter twenty six.
+
+## SQL, and the two things that surprise people
+
+Now the language. I will not read syntax to you; you have documentation. I want to give you the model and the two traps.
+
+SQL is set-based. You describe the result you want from the data, and the engine decides how to produce it. This is genuinely a different way of thinking from procedural code, and the transition is the main learning curve. The instinct to fetch a list and then loop over it issuing one query per item is the single most common performance disaster in application code — often called the plus-one problem — and the cure is to express the whole intent as one statement with a join or an aggregate and let the engine do the work.
+
+The core operations: select the columns you want, restrict rows with conditions, combine tables by matching related columns, group rows to aggregate them, order the result, and limit how many rows come back. Add one more that is worth learning early: window functions, which compute across a set of related rows without collapsing them. That is the clean way to get the latest status change per incident, which is a query you will absolutely need.
+
+Now the first trap: absence. A missing value is not equal to anything, including another missing value, and comparisons involving it produce neither true nor false but unknown. Which means a condition testing for inequality silently excludes rows where the value is missing, and a count of a nullable column silently ignores them. This is the source of an enormous number of quietly wrong reports. Two defences: make columns not-null wherever a fact is genuinely required, so absence is not representable, and when a column really is optional, be explicit in every query about how absence should be treated.
+
+The second trap: the difference between what you asked for and what you get when the same statement runs twice concurrently. Which brings us to transactions.
+
+## Transactions, and the concurrency you already met
+
+A transaction is a group of statements that either all take effect or none do. That is atomicity, and it is why the status-change-plus-incident-update pair belongs in one. Add durability — once committed, it survives a crash — and you have the two properties you most need today.
+
+The subtler property is isolation: what one transaction can see of another's work in progress. PostgreSQL's default level prevents you from reading uncommitted work, but it does not prevent the anomaly that will bite you. Consider two operators changing an incident's status at the same time. Both read the current status. Both decide the transition is legal. Both write. One decision is silently lost, and the audit trail contains two changes from the same starting point, which is not what happened.
+
+This is the same lost update you met in chapter eleven, in the await gap, and here is the point of that earlier lesson: the fix is not cleverness in your application, it is the database doing its job. Three tools.
+
+You can lock the row while you read it, so the second transaction waits until the first commits and then sees the true current state. Simple, correct, and it serialises access to that row, which for an incident is entirely acceptable.
+
+You can use optimistic concurrency: keep a version number or a last-updated timestamp on the row, and make your update conditional on the value you read. If it changed, your update affects nothing and you know to reload and retry. No locks, and it works well when conflicts are rare. It also gives you a clean way to tell the operator that someone else changed this record while you were looking at it — which is a real workflow event in a shared queue, and much better than silently overwriting a colleague.
+
+Or you can raise the isolation level to the strictest setting, where the database detects conflicting patterns and refuses one transaction, and your application must be prepared to retry. This is the strongest correctness guarantee and it requires retry logic everywhere, so use it where the invariant is genuinely complex.
+
+For FieldOps Copilot, I would take the optimistic version column for status changes, because it also gives the operator useful information, and I would use explicit locking anywhere I need to read-then-write a counter.
+
+Two operational rules about transactions. Keep them short — a transaction held open across a slow outbound call holds locks and consumes a connection, and one such path can stall the whole service. And make transaction scope match the unit of work, which for us is one request. Never let a transaction span a user's thinking time.
+
+## Idempotent creation, finally
+
+Now the payoff for two chapters of foreshadowing.
+
+Chapter nine left you with an honest problem: a submission that times out might or might not have been created, and the interface had to tell the operator to check before retrying. Chapter twelve put an idempotency key in the contract: the client generates a key for a submission and sends it, and the service promises that two requests with the same key produce one record and the same response.
+
+Here is how it is actually enforced, and it is elegant. Store the key on the incident with a unique constraint. On creation, attempt the insert. If the key is new, you get a new record. If the key already exists, the insert conflicts, and you resolve the conflict by returning the record that already exists rather than creating a second one.
+
+Notice what did the work: a unique constraint. Not application logic that checks whether the key exists and then inserts, because that check-then-insert has a race window and two concurrent retries will pass the check simultaneously. The constraint is the only thing that is atomic, and this is a perfect small illustration of the chapter's whole theme — correctness belongs where it cannot be raced.
+
+Two design details. Decide the scope of the key: unique per customer, or per operator, or globally, and note that a key reused for a genuinely different record should probably be an error rather than a silent match. And decide how long the keys are meaningful, because retention forever is fine at pilot scale and a cleanup job at real scale.
+
+Then verify it the honest way: send the same creation twice concurrently and count the rows. This is one of the few tests that produces a number you can put in front of a customer.
+
+## Indexes and query plans
+
+Now performance, which I want you to approach as an evidence exercise rather than an instinct exercise.
+
+An index is an auxiliary structure that lets the engine find rows without examining every row. The default kind is a balanced tree, and it helps with equality and range conditions, with sorting, and with joins on the indexed columns. It costs you write throughput and storage, because every insert and update must maintain it. So the rule is: index for queries you actually run, not for columns that look important.
+
+Three refinements worth knowing. In a multi-column index, column order matters, and the useful mental model is that it can serve conditions on a leading prefix of the columns. An index that covers every column a query needs can answer that query without touching the table, which is a large win for a hot query. And a partial index — one that covers only the rows matching a condition — is ideal for a queue where you constantly query open incidents and rarely query closed ones, which describes our workload precisely.
+
+Also, and this catches many people: a foreign key does not create an index on the referring side automatically. If you query status changes by incident, you need that index, and its absence is invisible until the table grows.
+
+Now plans. The engine will tell you how it intends to execute a statement, and — more useful — how it actually executed it, with real timings and real row counts. Learn to read three things.
+
+First, the access method. Reading the whole table, versus using an index, versus scanning an index and fetching matching rows. A full scan is not automatically wrong — on a small table it is genuinely faster — which is exactly why you must test at realistic volume.
+
+Second, estimated versus actual row counts. When they diverge wildly, the planner is working from bad statistics and choosing badly. That is your signal to refresh statistics, or to reconsider a condition the planner cannot estimate.
+
+Third, where the time actually went. The expensive step is often not the one you suspected, and the number of times a step executed frequently reveals the plus-one problem hiding inside a framework's convenience.
+
+The single most important practice here: generate a realistic volume of synthetic incidents before you look at a plan. Ten thousand rows, distributed the way a real customer's data would be — mostly closed, a minority open, severity skewed toward the middle. Then run your real operator query, look at the plan, add the index, look again, and record both. That before-and-after pair is your evidence, and it is exactly what chapter twenty three will build on.
+
+## Migrations and access
+
+Two operational topics, briefly, both of which customers care about more than you expect.
+
+Migrations. Every schema change is a versioned, ordered, reviewed file, applied in sequence to reach the current state. Written by hand this chapter, because generated migrations hide exactly the decisions you are trying to learn. Three rules. Never edit a migration that has been applied anywhere — write a new one. Make each one small enough to review in a pull request. And for anything destructive, use the expand-and-contract pattern: add the new thing, migrate the data, switch the code, and only remove the old thing in a later release once nothing uses it. That pattern is what makes a deployment survivable when the old and new versions of your service run at the same moment, which is exactly what happens in chapter thirty.
+
+Also: a migration is code that runs against customer data, so it deserves the same scrutiny as anything else, and it needs a stated rollback plan even if the plan is restore from backup. And know which migrations require a lock that blocks writes, because the difference between a quick change and a customer outage is sometimes one clause.
+
+Access. Your service's database role should have exactly the privileges it needs: read and write on the tables it uses, insert-only on audit tables, and no ability to alter the schema. Migrations run as a different role with different privileges, ideally from your deployment pipeline. Nothing runs as a superuser. This costs ten minutes to set up and it is the difference between a bug that corrupts one row and a bug that drops a table. If you need tenant isolation enforced by the database itself rather than by your application, PostgreSQL offers row-level policies — worth knowing about now, and a reasonable thing to defer with a note.
+
+And two things to have an answer for, because the customer's platform team will ask on the first call: what is your backup and recovery approach, and what is your data retention rule. You do not have to implement either today. You do have to be able to say what you intend, because chapter thirty two will require it in writing.
+
+## How much logic belongs in the database
+
+One judgment call before the field argument, because you will be tempted in both directions and there is a defensible middle.
+
+PostgreSQL can do far more than store rows. It can run functions, enforce complex rules, fire triggers on changes, and maintain derived tables. Some very experienced engineers put substantial business logic there, and they have real arguments: it is close to the data, it cannot be bypassed by any writer, and it is often dramatically faster than pulling rows into your process to decide something.
+
+The counter-arguments are equally real for our situation. Logic in the database is harder to test with your application's test suite, harder to review in a normal pull request, invisible to an engineer reading only your service code, versioned only through migrations, and dependent on a skill set the customer's team may not have. And it splits the answer to the question this course keeps asking — where does policy live? — which is exactly the split we spent chapter eleven eliminating.
+
+So here is the line I would draw for FieldOps Copilot. Put in the database anything that is an invariant about the data: types, keys, uniqueness, referential integrity, check constraints, and the permission structure that makes audit rows unmodifiable. Those are properties of the data, they must hold for every writer, and no application code can be trusted to enforce them universally.
+
+Keep in the service anything that is a decision: the priority policy, the legality of a status transition, the customer's business-unit weighting. Those change with the customer's process, they need to be tested and versioned with your code, and they need to be explainable to a stakeholder in chapter thirty seven.
+
+The one genuinely contested case is the audit trail. A trigger that writes an audit row on every change to an incident is attractive, because it cannot be forgotten — and being unforgettable is the whole point of an audit trail. The cost is that the trigger has no idea who the actor was unless you pass it in, which means your service must set that context anyway, and now the mechanism spans two places. My preference is to write audit rows explicitly in the same transaction as the change, in the one application-layer function that all callers pass through — the same placement argument as chapter twelve's authorisation — and then to prove it with a test that a change without an audit row is impossible. But if you choose the trigger, choose it deliberately and write down how the actor gets there. Either answer is defensible. Not deciding is not.
+
+## Why a forward deployed engineer cares
+
+Briefly, four reasons.
+
+Because operational history is the product. The value of FieldOps Copilot compounds through its record: what happened, how it was triaged, who decided, how long it took. Chapter thirty five's return-on-investment case is computed from this data. If it is unreliable, the business case is unprovable, no matter how good the interface looked.
+
+Because multiple writers are guaranteed. Two operators, a retrying integration, a scheduled job, and eventually an agent. Every one of them is a concurrency scenario, and the database is where those scenarios are resolved correctly.
+
+Because someone will ask, months later, who changed this and when. An immutable audit trail with an actor and a timestamp answers in seconds. Its absence turns an investigation into archaeology, and sometimes into an admission you cannot answer at all.
+
+And because the schema outlives you. Your service will be rewritten. Your interface will be restyled. The data will still be there, and it will be read by tools nobody has written yet. Constraints, honest types, and clear names are a gift to those readers, and they are also the artifact a customer's database administrator will review before they let you near production.
+
+## Pitfalls, named
+
+No constraints because the application validates. Covered, and it is the big one.
+
+Everything nullable, because it is easier during development. Absence then spreads into every query and every report, silently.
+
+Timestamps as text, or in local time, or from the client. Store instants with a time zone, from a source you control.
+
+Money or precise quantities in floating point. Use an exact numeric type. Not our problem today, and it will be in chapter thirty five.
+
+The plus-one query, usually delivered by a convenient framework. Look at the plan and count executions.
+
+Selecting every column by habit. It moves data you do not need and it breaks the moment someone adds a large column — and it defeats covering indexes.
+
+Long transactions, especially across an outbound call. Locks held, connections consumed, cascading slowness.
+
+No statement timeout. One pathological query pins a connection indefinitely. Set a bound.
+
+Pool sizing by guess. Too small and requests queue behind connections; too large and you exhaust the database's own limit, which fails in a way that looks like your service being broken.
+
+Missing index on the referring side of a foreign key, and its opposite, indexing every column and paying for it on every write.
+
+Editing an applied migration. Now two environments have different schemas that claim the same version, and nothing will make sense again.
+
+A destructive migration in one step. Use expand and contract.
+
+Check-then-insert for idempotency instead of a unique constraint.
+
+Updatable audit rows. Permissions, not politeness.
+
+Storing a derived value with no record of the policy version that produced it.
+
+Soft deletion without a plan. A flag on every row that every query must remember to filter is a permanent tax and a data-leak vector when one query forgets. If you need it, enforce it in one place, such as a view.
+
+Running as a superuser because it was faster to get started.
+
+Testing against a different database engine than production. Constraints, types, isolation behaviour, and plans all differ. Test against the real thing; a container makes this easy, and chapter twenty eight makes it routine.
+
+## Verifying your work
+
+Nine checks.
+
+Restart everything with incidents in the system. They are still there. Enjoy that.
+
+Apply every migration to a completely empty database, in order, from scratch. Then do it again on a copy of a populated database. Both must succeed, and this is exactly what chapter twenty seven will automate.
+
+Submit the same creation twice with the same idempotency key, sequentially, then concurrently. Count the rows. The answer is one, both times, and the response is the same both times.
+
+Change one incident's status from two sessions at the same time. Confirm that one succeeds and the other is told the record changed underneath it, and confirm the audit trail contains exactly what happened rather than two changes from the same starting point.
+
+Try to violate every constraint on purpose: an incident with a severity outside the set, a status change referring to a nonexistent incident, a required field left empty, a duplicate idempotency key. Each must be refused by the database, not merely by your service — so issue them directly.
+
+Try to update and delete an audit row using the application's database role. Both must be refused.
+
+Seed a realistic volume, run your real operator list query, and read the plan. Add the index. Read it again. Record both, including the timings and the row estimates.
+
+Roll back a transaction deliberately, in the middle of a multi-step operation, and confirm that nothing partial survives — no orphan status change, no audit row for an event that did not happen.
+
+Finally, read your schema out loud as a set of assertions. Every incident has a severity from this set. Every status change belongs to an existing incident and names an actor. Every audit event has a time and an actor. If any of those sentences is not enforced by the schema, it is not true, it is a hope.
+
+## Your practice test
+
+Guide has the rubric. Spoken:
+
+Your goal is to make PostgreSQL the system of record for FieldOps Copilot, with an enforced schema, hand-written migrations, transactional operations, working idempotent creation, and one evidence-backed index.
+
+Your constraints: model incidents, operators, status changes, and audit events, with the last two append-only. Every fact that must be true is enforced by a constraint, not only by your service. Timestamps are instants with a time zone from a source you control, and recorded time is distinguished from occurrence time. Derived values record the version of the policy that produced them. Severity and impact are represented in a way that reflects who owns the vocabulary. Migrations are hand-written, ordered, and never edited after application, with any destructive change expressed as expand and contract. All multi-step operations are transactional and short. Idempotency is enforced by a unique constraint, not by checking first. The application's database role cannot alter the schema and cannot modify audit rows. Every operation still passes chapter twelve's authorisation, including object-level checks now expressed in queries. And nothing above the storage interface from chapter eleven changed.
+
+Your artifacts: the schema with a one-line assertion per constraint explaining what it makes impossible; the migration files; the transactional implementations of create, list, get, and status change; the idempotency test showing one row from two concurrent identical submissions; the concurrency test showing a lost update prevented; a before-and-after query plan pair at realistic volume with the index decision and its cost; a database role and privilege note; a seed script that generates realistic volume and distribution; and a short retention and recovery statement of intent.
+
+You are done when restarting the service loses nothing, when duplicate retries create one incident, when an audit row identifies who changed a status and when, when a constraint refuses bad data issued directly to the database, and when your index decision is supported by two plans rather than an opinion.
+
+## Recap
+
+Five things.
+
+First, constraints are not duplicate validation. They protect the data from every writer, including the ones you never meet. Read your schema as a set of assertions and make each one enforced.
+
+Second, model current state, history, and evidence differently. Append-only status changes and audit events, with permissions that make rewriting them impossible.
+
+Third, transactions give you atomicity and durability, but the anomaly that will bite you is the lost update. Optimistic versioning or explicit locking, chosen deliberately, and short transactions always.
+
+Fourth, idempotency is a unique constraint plus conflict resolution. Never check-then-insert. That is the honest answer to chapter nine's timeout.
+
+Fifth, performance work is evidence work. Realistic volume, then the plan, then the index, then the plan again. Record both.
+
+In chapter fourteen we deliberately consider adding a second kind of storage — an expiring cache for a derived value — and the real lesson is how to decide whether an additional datastore earns its operational cost. Persist the system first. Then meet me there.

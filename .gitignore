@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+desktop.ini
+.cursor/
+internal/
+tmp/
+scratch/
+*.log
+node_modules/
+.pytest_cache/
