@@ -10,11 +10,9 @@ The accumulating system is **Promise Desk**. Release one only protects a promise
 
 Harborline Logistics and FieldOps Copilot are archived. Chapter 1 audio and text from that draft live in [`archive/harborline/`](../archive/harborline/).
 
-## Why not a telecom
+## Ncell, later
 
-"Enso" was considered as a Nepal telecom scenario. There is no Nepal telecom by that name worth building a course on. A fictional operator would repeat the Harborline problem: Kushal is not inside that organization and would be inventing the work. Mato is a customer he has already delivered for, so the charter tests judgment instead of world-building.
-
-Ncell or Nepal Telecom can be a later contrast, not the spine. The spine is a studio whose checkout can say yes faster than the hands can make the piece.
+"Enso" in the first briefing was Ncell, the Nepal telecom. Kushal confirmed that on 2026-09-22. It is a possible later scenario, not the spine of this course. Chapter 1 stays on Mato Crafts, because that is a studio he has already shipped for. A Ncell chapter would be a new customer environment, written only when he asks for it, with the same rule: do not invent their operations.
 
 ## Facts we will not invent
 
