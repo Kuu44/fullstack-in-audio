@@ -4,7 +4,7 @@
 
 Turn the Forward Deployed Engineer (FDE) roadmap into an audiobook-first course that reliably converts listening into applied skill. The course is not a generic full-stack survey: its learning sequence follows the FDE roadmap's technical, operational, and customer-delivery topics, and all practice work accumulates into one customer-deployable system.
 
-The learner's running build is **FieldOps Copilot**: an enterprise incident-and-request triage application with a web interface, API, data layer, AI agent, retrieval, evaluations, deployment, observability, and customer delivery artifacts. Each chapter extends a deliberate earlier version rather than starting a disconnected toy.
+The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade jewellery studio in Patan whose store Niyalo already shipped. The operational problem is a promise the bench cannot keep. Chapter 1 is retargeted. Later chapters still describe the earlier FieldOps draft until they are rewritten; see `docs/world-plan.md`. Each rewritten chapter should extend the previous Promise Desk state rather than starting a disconnected toy.
 
 ## Source boundary and coverage policy
 

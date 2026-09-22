@@ -1,266 +1,277 @@
 <!-- tts:skip -->
-## TTS notes — chapter 1
+## TTS notes — chapter 1 (Mato Crafts rewrite)
 
 - Voice: `en-US-AndrewNeural`, rate `-14%` (about 146 words per minute).
-- Say "F D E" as three letters, never "fud". The renderer substitutes this automatically.
-- "Harborline" is one word, stress the first syllable: HAR-bor-line.
-- "Dana", "Priya", "Marcus", "Sam" are the recurring cast. Keep them consistent across chapters.
-- `[pause]` markers become a beat of silence. They are placed at segment turns, not mid-argument.
-- Nothing in this block is spoken.
+- Say "F D E" as three letters. The renderer substitutes this.
+- "Mato" is Mah-toe. "Subhechha" is Soo-bhek-cha. "Niyalo" is Nee-yah-lo. "Patan Dhoka" is Pah-tahn Doe-kah.
+- Do not speak this block. Do not speak the hints in the project guide.
+- `[pause]` is a beat of silence at a turn, not mid-sentence.
 <!-- /tts:skip -->
 
-Welcome to FullStack in Audio. This is chapter one: entering the forward deployed engineering field. [pause]
+Welcome back to FullStack in Audio. This is chapter one again: entering the forward deployed engineering field. [pause]
 
-Before we start, one honest warning about how this course works. This chapter is about thirty-seven minutes of listening, and at the end of it there is a project. That project is written like an exam, not like a tutorial. It gives you a goal, some constraints, the artifacts you have to produce, and a rubric you can grade yourself against. It does not give you steps. There is no recipe to follow, and there is nothing to copy. That is deliberate. Everything you need in order to attempt it is in this audio, and the struggle between listening and finishing is where the skill actually forms. If you find yourself completely stuck, the project guide has hints at the very bottom, ordered from gentle to specific. They are at the bottom for a reason. Try first.
+If you already listened to the first version, set it aside. That version used a logistics company I invented, with depots and a vice president and a security team you have never met. You told me, correctly, that you are not inside an organization like that, and that asking you to invent one would not produce a useful charter. So this chapter has a real customer. One you already shipped for.
 
-Let me start with a scene, because this role is easier to recognize than it is to define.
+Before the scene, the same warning as last time, because the shape of the course did not change. This chapter is a full listen, and at the end there is a project. The project is an exam, not a tutorial. It gives you a goal, constraints, the artifacts you have to produce, and a rubric you grade yourself against. It does not give you steps. There is no finished charter to copy, including from this audio. I will show you how to think. I will not read you the page. If you get stuck, the written guide has hints at the very bottom, one question at a time. Try first. [pause]
 
-A logistics company called Harborline runs forty depots. Trucks come in, trucks go out, and things break: a dock door jams, a refrigeration unit drifts out of range, a barcode scanner dies mid-shift, the yard management screen freezes. When something breaks, a depot supervisor sends an email to an operations desk staffed by nine coordinators. Those nine people read the email, decide how urgent it is, decide who should fix it, and type it into a spreadsheet so they can find it again later. On a quiet day that works. On a bad day, four hundred emails arrive, and the coordinators are the bottleneck between a broken dock door and the person who can fix it.
+## The customer is already yours
 
-Harborline's vice president of operations is named Dana. Dana does not want an artificial intelligence strategy. Dana wants the refrigeration failures to stop sitting in an inbox for two hours. That is the entire ask. And somebody has to turn that sentence into a working, deployed, supportable system inside Harborline's real environment, with Harborline's real identity provider, Harborline's real security review, and Harborline's real, tired coordinators who have already survived three software rollouts that made their jobs worse.
+The customer is Mato Crafts. Patan. Handmade polymer-clay jewellery, especially earrings. The founder is Subhechha Singh. There is a shop at Patan Dhoka. The pieces are made by hand. You, through Niyalo, already built the store: catalog, custom orders, cart, sold-out states, payments, delivery, inventory, and the site itself. You also ran the Meta ads.
 
-That somebody is a forward deployed engineer. [pause]
+Hold that last pair of facts together, because they are the whole chapter.
+
+The store can take an order. The ads can create more orders. The bench cannot magically absorb them. You already know the consequence, because it happened: the ads were paused when demand got ahead of what the makers could finish.
+
+That pause is not a small marketing footnote. It is a founder choosing not to break promises. It is also growth turned off, on purpose, because the operation could not keep the promise the storefront was making. Dana, in the old version of this chapter, wanted refrigeration alarms to stop sitting in an inbox. Subhechha's version of that sentence is quieter and closer to you. She does not need another website. She has one. She needs the studio to be able to say yes to an order without the bench paying for that yes in missed dates, rushed clay, or ads that have to be switched off.
+
+That is a forward deployed problem. And the awkward part is that you are already the person who built the surface customers buy through. [pause]
 
 ## What a forward deployed engineer actually is
 
 A forward deployed engineer is an engineer who builds and delivers working software inside a customer's environment, accountable for the outcome the customer cares about rather than for a component in a backlog.
 
-Hold onto three parts of that sentence, because each one is load-bearing.
+Three parts. Each one is load-bearing. I am going to say them in general, and then say what they mean at Mato, because the general version is how the role is defined and the Mato version is how you will practice it.
 
-First: an engineer. You write code. You read logs. You design schemas, secure endpoints, containerize services, and debug the thing at eleven at night when the pilot is on the line. This is not a customer success role with a technical veneer. If you cannot build the system, you cannot do the job.
+First: an engineer. You write the system. You read the logs. You decide what is stored, who can see it, and what happens when it fails. This is not a strategy role with a technical vocabulary. If you cannot build the thing, you cannot do the job. You already clear this bar. You have shipped stores, inventory, invoices, dashboards. Do not spend this course re-proving that you can make a page. Spend it on the parts a page does not cover.
 
-Second: inside a customer's environment. Not in a clean repository with your preferred stack, your preferred cloud, and your preferred assumptions. You will land in an environment that already has an identity provider you did not choose, a cloud account with policies you did not write, a data residency rule you must respect, a platform team with a change window, and an existing ticketing system that everyone hates but nobody will replace this quarter. The environment is an input to your design, not an obstacle to it.
+Second: inside a customer's environment. Not in a clean repository with your favorite stack and your favorite assumptions. The environment is an input. At a large enterprise that means their identity provider, their cloud rules, their change window, their security review. At Mato it means something smaller and, for you, more dangerous, because it is familiar. The shop already has a live store that you built. Payments already exist. Sold-out already exists as a state on the site. Custom orders already exist as a path. The part you did not build is the bench: how a maker's day actually fills up, which designs are slow, which custom request is a polite no, who notices that a product should have been marked unavailable yesterday. That bench is the environment. If your design assumes the website is the business, you have already left the customer's environment and gone back to your own.
 
-Third: accountable for the outcome. This is the part that distinguishes the role most sharply. A product engineer can ship a correct feature into a backlog and be finished. A forward deployed engineer who ships a correct feature that nobody adopts has failed. Your unit of success is a deployed system producing a measurable change in how the customer works.
+Third: accountable for the outcome. A correct feature that nobody uses is a failed delivery. Your unit of success is a change in how the studio works, measured in something the founder already recognizes. "The new screen looks better" is not that. "We stopped accepting orders the bench cannot start" might be. You will choose the measure in the project. I am not choosing it for you.
 
-Now let me draw the boundaries, because a forward deployed engineer sits in the middle of four other functions, and confusion here is the single most common way a delivery falls apart.
+Now the boundary that makes this role confusing, because a forward deployed engineer sits between other jobs, and at a studio of this size those jobs are sometimes the same human wearing different hats. [pause]
 
-Product engineering owns the reusable core. They build the capability that many customers share, and they are right to resist bending it for one customer. Their job is leverage across the whole customer base.
+## Who owns what, when the company is small
 
-Solutions engineering and sales engineering own the pre-sale conversation. They demonstrate capability, shape expectations, and help the customer imagine the outcome. Their work often creates the promise you are going to be asked to keep.
+In a big delivery, four groups are easy to point at.
 
-The platform or infrastructure team owns the substrate: the network, the clusters, the pipelines, the deployment paths, the cost. They care about reliability and blast radius across everything, not just your pilot.
+Product engineering owns the reusable core. They are right to refuse a one-customer fork.
 
-The customer's own teams own the operational reality. Their operators do the work. Their administrators hold the permissions. Their security reviewers hold a veto. Their sponsor holds the budget.
+Solutions and sales engineering own the promise made before you arrived. They demonstrated a future. You inherit it.
 
-The forward deployed engineer works across all four, and produces the thing none of them produce alone: a specific system, in a specific environment, solving a specific problem, that the customer can operate after you leave.
+The platform team owns the substrate: accounts, networks, deploys, cost, on-call.
 
-That last clause deserves emphasis. After you leave. A deployment that only works while you are personally watching it is not a deployment. It is a demonstration with you as a dependency.
+The customer's own people own the work. Operators do it. Administrators hold permissions. A security reviewer can veto. A sponsor holds the budget.
 
-Let me also name what the role is not, because the title attracts some romantic misconceptions.
+A forward deployed engineer produces the thing none of those four produce alone: one specific system, in that environment, for that outcome, that still runs after you leave.
 
-It is not a demo artist. Demos are easy and cheap in the era we work in. You can get an impressive model response in an afternoon. The hard part has always been the rest of it: the data path, the permissions, the failure behavior, the audit trail, the person who has to trust the output at three in the morning.
+After you leave. Say that again when you are tempted to be the permanent operator of Mato's queue. A desk that only works while you are in the Instagram thread, or while you are the one marking things sold out by hand, is not a deployment. It is you, rented as a feature.
 
-It is not a consultant who writes recommendations. You are measured on a running system, not on a slide deck of findings.
+At Mato, draw the same four groups honestly, even where the org chart is one room.
 
-It is not a lone hero. The romantic image of one engineer parachuting in and rewriting everything is how you produce a system nobody else can maintain, which is a failure with a good story attached.
+Product, for you, is Niyalo's ability to ship a store again for the next brand. You have done this shape of work more than once. ReFashion was orders moving off Instagram DMs onto a store with inventory. Mato is handmade jewellery with custom orders and a bench behind the catalog. If every Mato exception is hardcoded into a Mato-only pile, the next studio starts from zero and this one becomes unmaintainable. The reusable part and the Mato-only part have to be distinguishable. You will not draw that split in this chapter. You will refuse to pretend it does not matter.
 
-And it is not an unpaid product manager. You will absolutely do discovery, scoping, and stakeholder work. But you do it because you need those answers in order to build the right thing, not instead of building. [pause]
+Solutions, for you, is the proposal you already kept. The store shipped. Payments work. Ads ran. The dangerous misread is that "we built the store" was heard as "the studio can now accept whatever demand the ads create." Those are different sentences. A forward deployed engineer writes down which sentence was actually promised.
 
-## Coming to this role from wherever you are now
+Platform, for you, is not a four-person team named Marcus. It is the accounts this shop already depends on: the store, the payment provider, the ad account, wherever product photos live. Some of those you administer. That is a risk, not a convenience. If the only person who can deploy, refund, or explain a sold-out flag is you, you are the platform team, and you are also the single point of failure. Write that down. Do not invent a platform department to make the charter look enterprise.
 
-Most people arrive at forward deployed engineering from somewhere else, and what you bring with you determines what you should deliberately work on. Let me go through the common starting points, because you are probably standing in one of them right now.
+The customer is Subhechha, and the people who make the pieces, and whoever actually reads a new order on a given afternoon. Those might be the same person at different hours. A founder who sells in the shop, answers a custom request, and also makes jewellery is three stakeholders in one body. Your charter has to show the conflict inside that, not average it into "the client wants growth."
 
-If you come from backend engineering, you arrive with the most transferable core: services, data, contracts, failure handling. What you usually lack is comfort with ambiguity you cannot escalate. In a product team, a fuzzy requirement goes back to a product manager. In the field, a fuzzy requirement is yours. Nobody is coming to make the decision for you, and waiting is itself a decision with a cost.
+And the system you have not built yet, which this course will call Promise Desk, is a fifth party. It gets a row. It is not a feature. It is a participant with permissions and a prohibition.
 
-If you come from frontend engineering, you arrive with something undervalued and genuinely rare: an instinct for whether a human being can actually use this under pressure. That instinct will save a pilot that a technically superior system would have lost. What you usually need to build is depth in the operational layer, the boundary where data durability, identity, and deployment live.
+What the role is not, still, because the title attracts the wrong story.
 
-If you come from data engineering, you arrive knowing that most intelligence problems are data problems wearing a costume. You will see the stale asset table before anyone else does. What you often need is the interactive path: the service, the interface, and the human who is waiting for a response in under two seconds.
+It is not a demo. You can make a model say "this order looks urgent" in an afternoon. The hard part is the promise, the stock, the maker's hours, and the person who is blamed when a customer in Kathmandu, or abroad, is told a date the clay cannot meet.
 
-If you come from machine learning or research, you arrive knowing what models can and cannot do, which protects you from the two worst failure modes in this work: promising magic, and dismissing the whole category. What you usually need is delivery engineering — the deployment, the versioning, the observability, the boring discipline that turns a capable model into a system somebody can rely on.
+It is not a slide deck of recommendations. You are measured on a running change in the studio, not on a document that describes one. This chapter's document is the exception. It exists so the running system later has a boundary. It is not the delivery.
 
-And if you come from consulting or solutions work, you arrive fluent in stakeholders, which is a real advantage. What you need is the credibility that comes from actually building it, because in this role your technical judgment is the reason anyone listens to your advice.
+It is not a hero rewrite. You already have a store. Throwing it away to build a romantic new platform is how a small studio gets a second system and zero capacity.
 
-Here is the transition that matters most, regardless of where you started. In a product organization, your work is bounded by a ticket and your success is judged by whether the ticket is correctly done. In the field, your work is bounded by an outcome and your success is judged by whether a customer's day changed. Those two jobs reward almost opposite habits. The first rewards staying in scope. The second rewards noticing that the scope is wrong. [pause]
+It is not unpaid product management. You will do discovery because you cannot build the right limit without it. You will not substitute discovery for the system. Chapter one is the charter. The system starts after the charter exists. [pause]
 
-## What the first two weeks actually look like
+## Coming from the work you already do
 
-Let me make this concrete, because "own the outcome" is easy to say and hard to picture. Here is roughly how a competent forward deployed engineer spends the first two weeks at a customer like Harborline, and I want you to notice how little of it is typing.
+Most people enter this role from somewhere else. I am going to spend the time on your somewhere, and then name the others briefly so you can recognize them when a teammate, or a future you, shows up with a different bias.
 
-You start by watching the work. Not interviewing about the work — watching it. You sit with Sam the coordinator for two hours during a shift and you shut up. You will learn things nobody would have told you, because the people doing the work have stopped noticing the workarounds. You will see Sam keep a second spreadsheet that nobody at the management level knows exists. You will see Sam recognize a depot's name and immediately know it means "call Ray, do not file a ticket." That piece of knowledge is worth more to your design than any architecture diagram you could draw in the same two hours.
+You come from agency delivery and product engineering. Niyalo designs, brands, and ships. Sites, stores, inventory, invoices. Youanai is a product company where you own a large share of the engineering. That combination is rare and it is also the trap. You are used to a brief, a build, a launch, and a handoff of the website. The customer is happy when the site is live. Forward deployed work is happy when a number in the operation moves, and stays moved after the launch week.
 
-Then you find the boundaries of the environment. Which identity provider governs access. Which cloud accounts exist and who approves changes in them. Where data is allowed to live and which regions are off limits. What the change window is and who chairs it. Whether there is a security review process and how long it actually takes, as opposed to how long the policy says it takes. None of this is glamorous. All of it determines whether your design is buildable.
+So the transition, for you specifically, is this. Stop treating "the store is in production" as the end of the engagement. The store is the environment you landed in. The outcome is upstream of the store: what the bench can promise this week. Your old success habit is shipping the interface the proposal named. The new habit is noticing when that interface is making a promise the workshop cannot keep, and treating that as your problem even though nobody wrote it in the original scope.
 
-Then you find the approval path, which is a different thing from the stakeholder list. A stakeholder has an opinion. An approver has a signature. Ask directly: who has to say yes before this can touch real incident data? You will often find a group nobody mentioned, meeting on a cadence you cannot afford to discover late.
+If the scope is wrong, staying neatly inside the scope is a failure. That sentence is the whole career change. It will feel rude the first time you use it, because good agency work is partly the discipline of not rebuilding the client's entire company. You still need that discipline. The charter is how you aim it. You widen the problem on purpose, then you narrow the first release on purpose. Widen without narrowing and you have volunteered to run their operations. Narrow without widening and you have shipped another screen.
 
-Then, and only then, you write the charter. It should take an afternoon, because by that point you are writing down what you learned rather than inventing what you hope.
+Other starting points, quickly, so the definition is not only autobiographical.
 
-And somewhere in the middle of all this, you build something small and real. Not the system — something small that produces evidence. A script that counts how many incidents arrived last month and how long they sat. A rough measurement of the baseline nobody has. This does two things: it earns you credibility with the platform team, because you showed up with data instead of opinions, and it gives you the number your outcome measure needs.
+From backend work, people bring services and failure handling, and they usually wait too long for a product manager to resolve a fuzzy requirement. In the field, waiting is a decision.
 
-Notice what is absent from those two weeks: choosing a framework, designing a schema, and calling a model. Those come later, and they come faster because of this work. The single most common mistake made by strong engineers entering this role is to start building on day two, because building is comfortable and ambiguity is not. What they build is usually correct and frequently irrelevant. [pause]
+From frontend work, people bring the rare instinct for whether a human can use the thing under pressure. They usually need the operational layer: durability, identity, deploy.
 
-## Why the boundary work matters more than it sounds
+From data work, people see the stale table first. They usually need the path a human is waiting on.
 
-Let me tell you how this goes wrong, because the abstract version of "define responsibilities" sounds like paperwork, and the concrete version is a pilot dying.
+From machine learning work, people know what a model cannot do. They usually need the boring release discipline that makes a model safe to trust.
 
-Back at Harborline. The pre-sale conversation went well. Dana saw a demonstration where an assistant read an incident description and produced a category, an urgency, and a suggested owner. Dana asked, reasonably, "so it triages the incident?" And somebody in that meeting said "yes."
+From consulting, people can run a room. They need the credibility of having built the thing.
 
-Three weeks later, a refrigeration alarm comes in. The system categorizes it, assigns urgency, and routes it to the maintenance queue. It is wrong. The depot has a known compressor issue and a local workaround that lives in a document the system never read. The unit is offline for nine hours. Product is lost.
+Your version of the missing piece is not syntax. You will get syntax later, in the chapters where you write the system, and those chapters will slow down and show the shape of a file, not only the idea. Not this chapter. This chapter is the aim. [pause]
 
-Now, whose failure is that?
+## What the first two weeks look like when you already built the site
 
-If you never wrote down the answer, here is what happens. Dana believes she bought automatic triage, so she believes the system failed. The coordinators believe they were told to trust the recommendation, so they stop trusting all of it, including the parts that work. The security reviewer notes that an automated system took an operational action without human approval and asks whether that was ever approved. Your platform team points out that nobody asked them about escalation paths. And you are in a meeting explaining that the demonstration was a suggestion feature, which is true, and which now sounds like an excuse.
+Here is the picture, and I want you to notice how little of it is a new framework.
 
-Every one of those problems is a boundary problem, and every one of them was preventable with a document written before any code existed.
+You start by watching the making, not by interviewing the founder about the making. You already know how she talks about the brand. You do not yet know, unless you have stood there, what a Tuesday afternoon does to a custom request. Sit where the pieces are made, or where orders are accepted, and be quiet. You are looking for the second list. Every operation has an official path and a list that actually runs the day. At a studio this might be a notebook, a notes app, a stack of half-finished pairs, a message thread, a mental count of "we can do three of the hard ones." Nobody puts that list in the proposal. It is the system of record whether you like it or not.
 
-Here is the reframe I want you to carry: in field delivery, an undocumented assumption is a liability with a delayed trigger. It does not hurt you the day you make it. It hurts you the day it is contradicted, in front of the customer, under pressure, when the cost of being wrong has already been paid.
+Then you find the boundaries of the environment you think you already know. Where does a new order land, in practice, not in the sitemap? Who is allowed to mark something sold out, and how late do they notice? What leaves the shop when a customer pays: name, phone, address, a note about a custom design? Which of those would be unacceptable to paste into a model? You built the store, so you will be tempted to answer from memory of the schema. Memory of the schema is not the same as watching the afternoon. Label the difference. Observed means you saw it or you have a record from the delivery you can point at. Assumed means you are guessing, including educated guesses from having built the checkout.
 
-There is a second reason the boundary work matters, and it is about you rather than the customer. Forward deployed engineers burn out from unbounded responsibility, not from hard work. Hard work is fine. Being the accountable party for everything, including decisions you were never given authority over, is not fine. Writing down who decides what is how you protect the delivery and how you protect yourself. [pause]
+Then you find the approval path. At Mato this is not a monthly governance board you have never heard of. It might still surprise you. Who can turn ads back on? Who can promise a date to a custom client? Who can refuse a design the studio does not want to make? Who can decide that your software is allowed to read order notes? A stakeholder has a wish. An approver can stop the work. Subhechha can stop the work. A maker who will not trust the queue can also stop it, by simply not using it, which is a veto with no meeting.
 
-## How to turn an ambiguous ask into a charter
+Only then do you write the charter. It should feel like notes from what you learned, compressed to a page. If it feels like a pitch, you started too early.
 
-So let us do the work. Your project for this chapter is to write a delivery charter for a system we will build across this entire course, called FieldOps Copilot. I am going to teach you how to think about each part of it, and then you are going to write yours without a template to fill in.
+Somewhere in those two weeks you also produce one small piece of evidence, not the system. A count. How many orders arrived in a week you can actually reconstruct. How many were custom. How many were later delayed, remade, or refused. Even a rough count from a notebook is more useful than a mood. It does two things. It gives the outcome measure a baseline, and it stops you from designing for a volume you invented.
 
-A charter is a one-page document that lets a sponsor, an operator, a security reviewer, and an engineer read the same page and reach the same understanding of what the first release is. One page is not a stylistic preference. It is a forcing function: if you cannot say it in a page, you have not decided yet.
+What is absent, still: picking a framework, drawing a schema, calling a model. Those are later chapters. Strong engineers start there because building is comfortable. What they build is often correct and beside the point. You are especially exposed to this, because you can build a store in your sleep. Do not build a second one. [pause]
 
-### Start with the problem, not the solution
+## How a missing boundary actually breaks
 
-Write the current workflow as it actually happens, including the ugly parts. At Harborline, the honest version is: a supervisor emails a shared mailbox, a coordinator reads it between other tasks, the coordinator decides urgency using judgment they cannot fully articulate, and then they retype it into a spreadsheet. Two coordinators sometimes work the same email. Nobody can tell you the average time from email to assigned owner, because nothing measures it.
+Let me make the failure concrete, because "write down responsibilities" sounds like paperwork until you watch the meeting it prevents.
 
-Notice that last sentence. "Nobody measures it" is one of the most valuable findings in discovery, and you should write it down rather than smooth it over, because it tells you something crucial: any improvement claim you make later will need a baseline you have to build.
+The store is live. A product can be ordered. Ads have, in the past, created more demand than the bench could finish, and the ads were paused. Imagine the next version of that mistake, because the paused ads are the symptom you already lived. The symptom is not yet the charter's costly failure. You have to decide what the failure underneath was. I will show you the shape. You will name it.
 
-Then name the costly failure. Not a list of annoyances — the specific failure that costs real money or real safety. At Harborline it is the refrigeration incident that sits unread. Everything else is friction. That one is loss.
+A customer orders a pair, or asks for a custom one. Someone says yes. The yes might be the checkout itself, which is a yes the website gives without asking the bench. Or the yes might be a human reply. The maker is already full. The date slips. The founder now has an angry customer, a half-made piece, and a reason to fear the next ad. So demand gets turned off. Revenue the studio wanted does not arrive. The website is "working." The outcome is not.
 
-The discipline here is to distinguish what you observed from what you assumed. When you write the charter, mark each claim. "Coordinators handle roughly four hundred messages on a peak day" is observed if someone showed you the mailbox, and assumed if someone said it in a meeting. This matters because assumptions are where your plan breaks, and you cannot test an assumption you have not labelled as one.
+Whose failure is that, if nobody wrote it down?
 
-### Name the users, in the plural, with their conflicts
+If you never wrote it down, here is the argument. The founder believes the store was supposed to grow the studio, so the store failed. The maker believes they were buried by promises they did not make. You believe you shipped what was scoped: catalog, payment, delivery, inventory. Everyone is partly right, which means the engagement has no owner for the only sentence that matters: who is allowed to promise a date.
 
-There is no such thing as "the user" in enterprise delivery. There are several, and they want incompatible things.
+That is a boundary failure. It was available to prevent before any new code. An undocumented assumption is a liability with a delayed trigger. Yours, if you leave it unwritten, is this one: a live checkout is the same thing as a promise the bench can keep. It costs nothing on launch day. It costs the ads, later.
 
-Sam is a shift coordinator. Sam wants fewer keystrokes and no new place to check. Sam has been through two rollouts that added work and removed nothing, and is therefore, correctly, suspicious of you.
+There is a second cost, and it is yours. Forward deployed engineers burn out from unbounded responsibility. If the charter says you are accountable for the brand, the clay, the ads, the refunds, and the code, you have accepted a job the founder did not give you and cannot pay you to finish. The page protects the studio and it protects you. Deciding and doing stay separate. You may build the desk. You do not get to decide which custom design the studio is willing to make. [pause]
 
-Dana is the sponsor. Dana wants the refrigeration class of incident handled faster, and wants to show her leadership that the investment produced something.
+## How to write this charter
 
-Priya is the security lead. Priya wants to know what data leaves the building, where it goes, who can see it, and what happens when it is wrong. Priya can stop the project and does not need to explain herself at length.
+The project is a one-page delivery charter for the first release of Promise Desk, for Mato Crafts. One page, because if it does not fit, you have not decided. Four readers have to recognize themselves: the founder, a maker, you as the engineer, and a future person who has to trust the limit when a recommendation is wrong. At this studio the fourth person might also be the founder. Write it so a skeptical friend can still find that concern on the page.
 
-Marcus runs the platform team. Marcus wants your system to not become his on-call burden, and wants it to fit the deployment and identity patterns he already supports.
+I am going to walk the parts. I will give you the standard for each part. I will not give you the finished paragraphs.
 
-Write all of them down, with what each one needs in order to say yes. A charter that only satisfies the sponsor is how you get to week six and discover that security review is a wall, not a checkpoint.
+### The problem, before the solution
 
-### Choose exactly one measurable outcome
+Write the current workflow as it actually happens, ugly parts included. You know some of it from the delivery. The studio sells handmade pieces through a live store. The store has a catalog, custom orders, a cart, payments, delivery, and a way to show that something is sold out. Makers produce the pieces by hand. Ads were paused because demand outran manufacturing.
 
-One. Not five.
+You do not know, unless you have watched it, the exact afternoon path. Do not smooth that into a story about email inboxes borrowed from a logistics company. Write "unknown" where it is unknown. A charter that invents a warehouse process you have not seen is worse than a short one.
 
-The test for a good outcome measure is this: could the customer measure it next month, without building a new analytics system, and would they recognize the number as mattering?
+Then separate the symptom from the costly failure. "Ads were paused" is observed. It is a symptom. The costly failure is the thing that made pausing them rational. Candidates, and these are candidates, not your answer: a promised date the bench could not meet; a custom request accepted with no idea how long it takes; a product left orderable after the maker was already full; overtime and broken pieces from saying yes too often. Pick the one the founder would recognize as the reason, label it assumed if you did not see it, and demote the rest to friction. A charter that tries to fix ads, branding, and international expansion in release one has not chosen.
 
-"Reduce median time from incident report to assigned owner, for refrigeration and safety-class incidents, from whatever it is today to under fifteen minutes" — that is a good outcome. It is narrow, it names a class, it implies a baseline you must establish, and Dana would care.
+Every factual claim gets a label. Observed or assumed. "You shipped payments, delivery, and inventory" can be observed, because you did that work. "The bench can finish twenty pairs a day" is assumed unless someone showed you a count. Unlabelled claims are failures, not style issues. This is how you keep a public story about a real studio from drifting into fiction. If a number is not yours to publish, do not put it on the page. The charter can be specific without being a financial disclosure.
 
-"Improve operational efficiency" is not an outcome. It is a mood.
+### The users, in the plural
 
-"Ninety percent triage accuracy" is a trap, and I want to be specific about why, because it sounds rigorous. Accuracy against what? There is no labelled ground truth for how Harborline's nine coordinators would have triaged four hundred messages, and those nine coordinators disagree with each other. You would spend the pilot building a scoring apparatus instead of improving the work. Measure the workflow outcome the customer already recognizes, and leave model quality to your evaluation suite later in the course.
+There is no "the user."
 
-### Draw the release boundary, including the non-goals
+Subhechha wants the studio to grow, and she has already shown she will turn demand off rather than break the work. She needs a way to say yes again without that fear. She can veto anything.
 
-Three lists: what the first release does, what it does not do, and what still requires a human.
+A maker wants a day that can be finished. A new tool that adds a form and removes nothing will be ignored. Ignoring it is a successful veto.
 
-That third list is the one people skip, and it is the one that saves you. At Harborline the honest version is: the system may suggest a category, an urgency, and an owner, and a coordinator must accept, change, or reject it before anything is assigned. No automatic assignment. No automatic escalation. No automatic customer notification.
+A customer wants a date they can trust, and a custom piece that matches what they asked for. They are not in the room. They still constrain the release. A faster checkout that lies about timing is a worse store.
 
-Write the non-goals as plainly as the goals. "The first release does not integrate with the maintenance work order system." "The first release does not handle voice or phone reports." "The first release does not replace the spreadsheet — it runs beside it." Every one of those will be asked for. Having written them down converts an argument into a reference.
+You want a system you can leave behind. You also want a reusable core, because the next studio should not require a fork of Mato's exceptions.
 
-A non-goal is not a refusal. It is a scheduling statement with a reason attached. And the reason should be about risk, evidence, or sequence, not about your convenience.
+Write the conflict. The founder can want ads back on in the same week a maker wants the queue frozen. The charter does not resolve that by cheerfulness. It states it, and the first release picks a side for now, with a reason.
 
-### Build the responsibility matrix
+### One outcome
 
-Now the part most people get wrong by doing it too vaguely. List each party — the coordinator, the customer administrator, you as the forward deployed engineer, the platform team, and the AI system itself — and for each one state what they decide, what they do, and when they escalate and to whom.
+One measure. The test: could the studio compute it this month, from something that already exists or could be counted by hand, and would the founder recognize it as the thing that matters?
 
-Two things make this useful instead of decorative.
+Good shapes, still not your sentence: the share of accepted orders that meet the date someone actually promised; the number of orders accepted in a week that the bench cannot start; the time from a custom request to a human yes or no. Bad shapes: "improve efficiency," "grow the brand," "model accuracy." Accuracy is a trap here. There is no labelled ground truth for which handmade order "should" have been accepted. Two makers might disagree. You would spend the pilot scoring the model instead of protecting the promise. Measure the workflow. Leave model quality for the evaluation chapter, later.
 
-The first is that the AI system gets a row. It is a participant with capabilities and limits, and writing its row forces the honest sentence: this system proposes, a human disposes. Once that is on the page, "so it triages the incident?" has a written answer that everyone saw before the pilot began.
+If today's number is unknown, write that, and make establishing it task one. Do not invent a baseline to look rigorous.
 
-The second is that you separate deciding from doing. The person who does the work is frequently not the person who can approve it. Priya does not implement encryption; she decides whether your approach is acceptable. Marcus does not define your data model; he decides whether your deployment path is supportable. Blur those and you will discover the difference during an escalation.
+### The release boundary
 
-And do not give yourself every decision. It is tempting, because you have the most context. It is also how you end up personally accountable for a business risk you were never empowered to accept.
+Three lists. What the first release does. What it does not do. What still requires a human.
 
-### Register the risks with their evidence
+The third list saves you. A honest direction, which you may reject if your problem statement demands it: Promise Desk may show that the bench is full, and may suggest whether a new order can be promised. A human accepts, changes, or refuses the promise before the customer is told. No automatic yes. No automatic refund. No automatic ad spend.
 
-Three risks is enough for a first charter, and each one needs a companion sentence: what evidence would retire it.
+Non-goals are mandatory, and each one needs a reason from risk, evidence, or sequence. Not from what you feel like building. Likely non-goals, for you to accept or replace: replacing the current store; turning ads back on; designing new products; shipping abroad; letting a model reply to a customer. Someone will ask for each of these. A written non-goal turns the argument into a reference.
 
-Risk: coordinators will not trust the suggestion and will ignore it. Evidence that retires it: in a supervised trial, coordinators accept or amend suggestions on a meaningful share of incidents rather than dismissing them outright.
+A non-goal is a schedule with a reason. It is not an insult to the founder.
 
-Risk: incident descriptions contain personal or sensitive content that must not leave the environment. Evidence: a data classification review with Priya, plus a demonstrated redaction path, plus a written decision about where inference happens.
+### The responsibility matrix
 
-Risk: the depot-level local knowledge that made the compressor incident go wrong is not written down anywhere the system can read. Evidence: an inventory of existing procedure documents, and an honest count of how many incidents depend on knowledge that exists only in someone's head.
+Rows for: the founder, a maker, you, whoever administers the store and the ads if that is not already you, and Promise Desk itself.
 
-Notice the shape. A risk without an evidence condition is just anxiety in a document. A risk with an evidence condition is a small research task with a finish line. [pause]
+For each row: what they decide, what they do, and where they escalate.
 
-## A charter read out loud
+The system's row must contain a prohibition, not only a capability. Finish this thought in your own words: it may suggest a promise, and a person must confirm it before a customer is told. If you cannot write the prohibition, you are not ready to build.
 
-Let me read you the shape of a finished one, in ordinary language, so you have a target. This is not a template to copy — the words are the point, and they should be yours.
+Separate deciding from doing. The founder may decide that a design is in bounds. A maker does the making. You may build the check. You do not decide the brand's taste. Do not give yourself the business risk. It is flattering and it is how you end up accountable for a late pair you had no authority to refuse.
 
-It opens with the situation. Harborline's operations desk receives incident reports by email from forty depots. Nine coordinators read, judge, and record each one by hand. On a peak day the desk handles roughly four hundred messages, which is an assumed figure taken from a supervisor's estimate and not yet verified against the mailbox. Nothing currently measures the time between a report arriving and an owner being assigned.
+### The risks, with evidence
 
-Then the cost. Refrigeration and safety-class incidents can sit unread during a busy shift. One such incident last quarter resulted in nine hours of downtime and lost product. This is the failure the first release exists to reduce. Other complaints about the workflow are real but are friction rather than loss.
+Three is enough. Each risk needs the evidence that would retire it.
 
-Then the people. Coordinators need fewer keystrokes and no additional place to check; they are skeptical because prior tools added work. The operations sponsor needs faster handling of the safety-class incidents and evidence to show her leadership. The security lead needs to know what data leaves the environment and what happens when a recommendation is wrong, and can halt the project. The platform lead needs the deployment to fit patterns his team already supports, because his team will carry it.
+I will give you the shape of one, so you can hear the difference between anxiety and a research task. Risk: makers will not trust the suggestion and will route around it with the notebook they already use. Evidence that retires it: in a week you actually watch, they accept or amend the suggestion on real orders, rather than ignoring it.
 
-Then the one outcome. Reduce median time from report received to owner assigned, for refrigeration and safety-class incidents, to under fifteen minutes. Today's value is unknown, and establishing it is the first task of the pilot.
+Your other two should come from this studio, not from a generic software list. Personal data in an order note. A checkout that still says yes while the desk says no. You being the only person who can change the system. Pick risks that, if they came true, would recreate the costly failure. A risk that would apply to any website is not a risk for this charter. [pause]
 
-Then the boundary, in three short lists. The first release accepts an incident report, records it durably, and offers a suggested category, urgency, and owner. It does not assign work automatically, does not notify anyone automatically, does not integrate with the maintenance work order system, and does not handle phone or voice reports. A coordinator must accept, amend, or reject every suggestion before anything is assigned.
+## What done sounds like, without handing you the page
 
-Then responsibility, party by party, with deciding separated from doing, and a row for the system itself stating that it proposes and never disposes.
+A finished charter opens on the studio as it is. Handmade pieces, a live store you already shipped, a bench with a finite day, ads paused when orders outran making. Claims labelled. Unknowns left unknown.
 
-Then three risks, each with the evidence that retires it.
+It names one costly failure, not five, and it does not pretend the failure is "we need a better brand."
 
-That is a page. Read it back and notice that a sponsor, an operator, a security reviewer, and an engineer all find their own concern addressed in it, and that not one sentence names a technology. That is the standard. [pause]
+It names the conflict between growth and a finishable day.
 
-## The failure modes to watch for
+It has one measure, and it admits if today's value is not on record.
 
-Let me name the ways this chapter's work goes wrong in practice, because recognizing them is most of the skill.
+It has three lists: does, does not, still needs a human.
 
-The first failure is the solution-shaped charter. You write a page that describes what you are going to build — a service, a queue, a model call — rather than what problem it solves and how you will know it worked. The tell is that a non-engineer cannot read it. If Dana cannot explain your first release to her own leadership in two minutes without saying a single implementation word, the charter is not finished.
+It has a matrix whose system row can refuse. It has three risks with finish lines.
 
-The second failure is the everything charter. Scope that includes the maintenance system integration, the mobile app, the analytics dashboard, and voice intake. It feels generous and ambitious. It is neither, because it guarantees you will have nothing finished when the pilot review arrives. Ambition in field delivery looks like a narrow first release that actually lands.
+A founder can explain the first release in two minutes without saying a framework, a model, or a vendor. A maker can see they are not being automated out of the promise. You can see what you are not allowed to decide.
 
-The third failure is the unfalsifiable outcome. Any metric that cannot go down cannot be trusted when it goes up. If your measure is "operator satisfaction with the new tool", you will get a polite number that means nothing.
+If your page is a transcript of this chapter, it fails. The reasoning is here. The sentences have to be yours, because you are the one who will have to defend them when the first awkward order arrives. [pause]
 
-The fourth failure is the invisible human. The charter implies automation but nobody wrote down where the human sits. This is the Harborline refrigeration story, and it is the most expensive of the four, because it damages trust rather than schedule. Trust is the resource you cannot rebuild quickly.
+## How this goes wrong
 
-The fifth failure is quieter and more insidious: the stakeholder you never met. You wrote a beautiful charter with the sponsor and the operators, and in week five you discover that a data governance group has to approve any system that reads incident descriptions, and they meet monthly. You did not fail to build something. You failed to find the approval path, which in enterprise delivery is part of the system.
+The solution-shaped charter. The page describes a bot, a database, a dashboard. Delete every implementation noun. If the problem disappears with them, start again from the bench.
 
-One more, because it is specific to this era of the work: the model-shaped charter. This is when the document's real subject is the technology rather than the problem. You can spot it by deleting every sentence that mentions intelligence, models, or automation, and reading what remains. If what remains does not describe a problem worth solving, the charter is a technology in search of a customer. [pause]
+The everything charter. Ads, a new store, custom design tools, international shipping, a full factory planner. Ambition here is a narrow release that lands. The pause already taught you what happens when the surface gets ahead of the hands.
 
-## How you verify this chapter's work
+The unfalsifiable outcome. Satisfaction, "vibes," a usage count. If the number cannot go down, it cannot be trusted when it goes up.
 
-This is a documentation chapter, so let me be precise about what checking it looks like, because "it feels done" is not a standard.
+The invisible human. The page implies the desk tells the customer yes. That is the failure mode you are here to make impossible.
 
-Verification one: the two-minute test. Explain the first release out loud, as if to Dana, without using an implementation word. No service, no model, no pipeline. If you cannot, your charter is describing a build rather than an outcome.
+The stakeholder you flattened. You wrote "the client" and never separated the founder who wants demand from the maker who has to meet it. Week three, the tool is unused, and you are surprised.
 
-Verification two: the disagreement test. Read the users section and find the place where two stakeholders want incompatible things. If you cannot find one, you have not documented reality. Real enterprises are full of legitimate conflict, and a charter that shows none is a charter that has smoothed the truth.
+The model-shaped charter. Delete every sentence about intelligence and automation. If no problem remains, you brought a technology looking for a studio.
 
-Verification three: the veto test. Go down your stakeholder list and ask, for each one, "can this person stop the project?" Everyone who can needs a row in your matrix and a known path to yes. If you have not identified at least one party with a veto, you are missing someone, probably in security, governance, or procurement.
+And one that is specific to you. The agency charter. It describes a successful relaunch of the website. That is the job you have already done. This course starts where that job stopped. [pause]
 
-Verification four: the measurement test. Take your one outcome measure and ask how you would compute today's value. If the answer is "we cannot, nothing records it", that is a finding and it belongs in the charter as a first task — not a reason to soften the measure.
+## How you check the page
 
-Verification five: the AI row test. Read the AI system's row in your responsibility matrix and check that it contains at least one clear prohibition. Not a capability list. A prohibition. If the system is permitted to do anything a human has not approved, say so explicitly and get it approved explicitly, or constrain it.
+The two-minute test. Explain the first release out loud as if to Subhechha. No service, no model, no stack. If you cannot, the charter is a build plan.
 
-Verification six, and it is the one professionals use: hand it to somebody and stay quiet. Give the charter to a colleague, let them read it, and ask them to tell you what the first release does and who is accountable when a recommendation is wrong. Whatever they get wrong is not their misunderstanding. It is your document. [pause]
+The disagreement test. Find two wants that do not fit. If you cannot, you wrote a brochure.
+
+The veto test. Who can stop this? The founder, yes. Who else, including a maker who simply does not use it? Each of them needs a path to yes.
+
+The measurement test. How would you compute today's value with what the studio already has, even if that is a notebook? If the answer is "we cannot yet," that sentence belongs on the page.
+
+The prohibition test. Read the system's row. It needs a clear "may not."
+
+The quiet test. Hand the page to someone who did not hear this chapter. Ask what the first release does, and who is accountable when a customer is told a date the bench cannot meet. Stay silent while they read. Whatever they miss is the document.
+
+The fiction test, because this customer is real. Read every sentence and mark it observed or assumed. If a sentence would embarrass you when read back to the founder because you guessed their internals, it is assumed, or it comes off the page. Do not publish their finances. You do not need a revenue figure to name the operational problem. [pause]
 
 ## Your project
 
-Here is your handoff. The project guide for this chapter asks you to create the FieldOps Copilot delivery charter for one realistic customer of your own choosing — an operations, facilities, or internal technology team with repeated incident triage. Use Harborline if you like, or use a customer you have actually seen, which is better.
+The written guide has the situation brief, the constraints, and the rubric. The brief is the input. You do not invent a company, and you do not switch customers. Mato Crafts is the customer for this course unless we deliberately change it later.
 
-Your goal is that a sponsor could read your charter and know exactly what the first release will do, for whom, and how success will be judged. Your constraints: one page, no implementation detail, every claim labelled as observed or assumed, non-goals mandatory, and one measurable outcome the customer could actually measure this month. The artifacts you owe are the charter, a responsibility matrix that includes the AI system and everyone who can block a decision, and a risk register where each risk carries the evidence that would retire it.
+You will write three artifacts: a one-page charter, a responsibility matrix that includes Promise Desk and everyone who can block a decision, and a risk register where each risk has the evidence that would retire it. Put them in the chapter one folder of the field workspace. They are yours to commit when you want them in this repo. Do not commit customer personal data, payment details, or ad-account access.
 
-There is no starting state. You begin with an empty file, which is exactly how this work begins in the field.
+Constraints, so you hear them before you open the guide. One page. No implementation detail. Every claim labelled. Non-goals required. One measure the studio could actually compute. The system gets a prohibition. You do not grade yourself generously.
 
-Write it before you look at the hints. Then grade yourself against the rubric honestly, because the rubric is the same set of checks a real reviewer would apply, and being generous with yourself now just means being surprised later. [pause]
+There is no code in this chapter. There is no starter file with the answer hiding in it. The empty page is the starting state. That is still how the work begins. The difference from last time is that the studio is specified, so your effort goes into judgment, not into world-building. [pause]
 
-## Recap
+## What you carry forward
 
-Let me leave you with the things worth carrying into chapter two.
+A forward deployed engineer is accountable for an outcome inside the customer's environment, and the environment is an input. Yours, this time, is a handmade studio whose store you already shipped.
 
-A forward deployed engineer builds and delivers real software inside a customer's environment, and is accountable for the outcome rather than for a component. The environment is an input to the design, not an excuse.
+The role sits between a reusable core, the promise already made, the accounts the shop runs on, and the people who make and sell the work. At Mato those are not four departments. They are still four kinds of responsibility, and blurring them is how a checkout becomes a lie.
 
-The role sits between product, solutions, platform, and the customer's own teams, and produces what none of them produce alone: a specific working system the customer can operate after you are gone.
+Coming from agency delivery, your specific shift is from "the site launched" to "the bench can keep the promise the site makes." Noticing a wrong scope is part of the job.
 
-Whatever specialty you came from, the transition is the same one: from work bounded by a ticket to work bounded by an outcome, where noticing that the scope is wrong is part of the job.
+An unwritten assumption waits until it is expensive. Yours to kill on paper, today, is that a working store is the same thing as a keepable promise.
 
-An undocumented assumption is a liability with a delayed trigger. It costs nothing the day you make it and a great deal the day it is contradicted.
+The charter is one page, four readers, one failure, one measure, three lists, a matrix with a prohibition, three risks with evidence.
 
-A charter is one page, written for four audiences at once, naming the problem, the users and their conflicts, one measurable outcome, the release boundary including non-goals, a responsibility matrix where the AI system has a row and at least one prohibition, and three risks with the evidence that would retire each one.
+Chapter two, when we retarget it, will take this charter as its input. You will implement one small promise rule, the same rule, in more than one language, and defend which runtime a studio like this would actually run. The audio that is in the repo tonight for chapter two is still the old logistics episode. Do not do that project against the old company. Finish this charter. We will rebuild chapter two on top of it.
 
-And the verification habit that outlasts this chapter: hand your document to someone, let them read it, and stay quiet.
-
-In chapter two we get into computational foundations and the question every forward deployed engineer eventually faces in a customer's environment: which runtime, and why that one. You will implement the same small piece of triage logic in three languages and defend your choice of one. Bring the charter you are about to write, because chapter two's project takes its inputs directly from it.
-
-That is chapter one. Go write the charter.
+That is chapter one. Go write the page.

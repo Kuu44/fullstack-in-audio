@@ -1,6 +1,6 @@
 # FullStack in Audio
 
-**Listen on the run. Sit the test at the desk. Ship FieldOps Copilot.**
+**Listen on the run. Sit the test at the desk. Ship Promise Desk for Mato Crafts.**
 
 A public, audiobook-first conversion course from software engineer to [Forward Deployed Engineer](https://roadmap.sh/forward-deployed-engineer). Thirty-eight chapters. About twenty-three hours of audio. One accumulating customer system. No tutorial recipes.
 
@@ -12,7 +12,7 @@ This is [Kushal Shrestha](https://github.com/Kuu44)'s study log, not a product p
 | **From** | Shipping customer software at [Niyalo](https://niyalo.com) and [Youanai](https://youanai.com) |
 | **To** | Forward deployed engineer: outcome-owned delivery inside a customer's environment |
 | **Loop** | One full chapter while running or at the gym, then the chapter test at the computer |
-| **Build** | [FieldOps Copilot](fieldops/README.md) — incident triage for an operations desk |
+| **Build** | [Promise Desk](fieldops/README.md) — keep a handmade studio from promising what the bench cannot make |
 | **Source map** | [roadmap.sh/forward-deployed-engineer](https://roadmap.sh/forward-deployed-engineer) |
 
 ---
@@ -49,7 +49,7 @@ flowchart LR
 
 I go running or to the gym every morning. That block is one chapter, start to finish — usually 32 to 40 minutes, never under 30. No 1.5x speed. No skipping the recap.
 
-Then I come back to the computer and sit that chapter's **project test** against FieldOps Copilot. The audio taught the concepts, tradeoffs, failure modes, and how to verify. The guide does not give steps. If I cannot attempt the work from listening, the chapter failed, not me.
+Then I come back to the computer and sit that chapter's **project test** against Promise Desk. The audio taught the concepts, tradeoffs, failure modes, and how to verify. The guide does not give steps. If I cannot attempt the work from listening, the chapter failed, not me.
 
 ```mermaid
 flowchart TD
@@ -60,7 +60,7 @@ flowchart TD
   G -->|no| R[Fix from evidence, not from hints]
   R --> T
   G -->|yes| P[Log artifacts, diagram, progress row]
-  P --> N[Keep FieldOps state for tomorrow]
+  P --> N[Keep Promise Desk state for tomorrow]
 ```
 
 Rules that stay locked:
@@ -92,7 +92,7 @@ flowchart LR
   end
   subgraph desk [At the desk]
     B[docs/guides/NN.md]
-    C[FieldOps Copilot]
+    C[Promise Desk]
     D[docs/progress.md]
   end
   A -->|concepts, tradeoffs, verification| B
@@ -102,56 +102,40 @@ flowchart LR
 
 ---
 
-## FieldOps Copilot
+## Promise Desk
 
-One system, not 38 disconnected exercises. By the capstone it has a real interface, service and data layers, a bounded AI workflow, deployment infrastructure, operational evidence, and a customer handoff pack.
+One system, for one studio. **Mato Crafts** already has a store. The course builds the limit that store was missing: a promise the bench can keep. By the capstone it should have a real interface, a service, a record of who promised a date, a bounded suggestion path, and a handoff the studio can run without you.
 
-The audio's customer is **Harborline Logistics**: forty depots, a nine-person operations desk, incidents arriving by email, urgency decided by human judgment. The first-release charter from chapter 1 decides what the copilot may do. The AI suggests. A human approves. Nothing acts on its own.
+Chapter 1 is the charter. The AI, when it exists, suggests. A human tells the customer yes or no. Nothing confirms an order on its own.
+
+Chapters 2–38 in the lesson table below are still the previous draft (a fictional logistics company). Their audio is unchanged. Do not do those projects until they are rewritten. See [the world plan](docs/world-plan.md). The old chapter 1 audio is in [archive/harborline](archive/harborline/).
 
 ```mermaid
 flowchart TB
-  subgraph operators [Operators]
-    Form[Intake workspace]
+  subgraph shop [Mato Crafts]
+    Bench[Makers at the bench]
+    Founder[Founder decides the promise]
   end
-  subgraph core [Reusable FieldOps core]
-    API[Incident API]
-    Policy[Priority policy]
-    DB[(PostgreSQL system of record)]
-    Cache[Expiring derived cache]
+  subgraph already [Already shipped]
+    Store[Live store and checkout]
   end
-  subgraph ai [Bounded AI path]
-    Prompt[Versioned instruction]
-    RAG[Tenant-filtered runbooks]
-    Agent[State-machine agent]
-    Eval[Eval gate]
+  subgraph desk [Promise Desk — not built yet]
+    Suggest[Suggest whether a promise is safe]
+    Human[A person confirms before the customer hears yes]
   end
-  subgraph ops [Operate and prove]
-    CI[CI / image / IaC]
-    Obs[Traces, metrics, redacted logs]
-    Gov[Threat model and residual risk]
-  end
-  Form --> API
-  API --> Policy
-  API --> DB
-  API --> Cache
-  API --> Agent
-  Agent --> Prompt
-  Agent --> RAG
-  Agent --> Eval
-  Agent -->|proposal only| Form
-  CI --> API
-  Obs --> API
-  Obs --> Agent
-  Gov --> API
+  Store -->|can say yes too early| Founder
+  Bench -->|finite day| Suggest
+  Suggest --> Human
+  Human --> Founder
 ```
 
-Work lands in [`fieldops/`](fieldops/README.md). Status for each layer lives there.
+The diagram above is the chapter 1 boundary, not the finished system. The later technical layers in the old draft — API, database, evals, deploy — get rebuilt onto this studio when those chapters are rewritten. Work for chapter 1 lands in [`fieldops/01-charter/`](fieldops/01-charter/README.md).
 
 ---
 
 ## Lesson plan
 
-38 chapters. ~23 hours of audio. Seven parts. Full coverage of the live FDE map plus the distinct supporting topics in the [source content](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Aliases (for example *APIs Design* / *API Design*) are taught once.
+38 chapters. Chapter 1 is the Mato Crafts rewrite and is the one to listen to. The rest of this table is the previous draft, kept so the map of topics does not disappear while it is retargeted. Full coverage notes for the live FDE map are in [the chapter list](docs/chapter-list.md).
 
 ```mermaid
 flowchart TB
@@ -317,13 +301,13 @@ If you fork this: keep the listen-then-test loop. Turning the guides into tutori
 | 38 lessons | Ready |
 | 38 project tests | Ready |
 | 38 audio files | Rendered and listen-ready |
-| FieldOps Copilot | Not started — chapter 1 is an empty file |
+| Promise Desk | Chapter 1 charter not written yet. Later layers wait on the rewrite. |
 | Daily progress | [Empty log](docs/progress.md) |
 
 ---
 
 ## Attribution
 
-Curriculum sequence follows the public [Forward Deployed Engineer roadmap](https://roadmap.sh/forward-deployed-engineer) and its [source topics](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Lesson prose, project tests, and audio are original to this repo. Harborline Logistics and FieldOps Copilot are teaching fictions.
+Curriculum sequence follows the public [Forward Deployed Engineer roadmap](https://roadmap.sh/forward-deployed-engineer) and its [source topics](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Lesson prose, project tests, and audio are original to this repo. Mato Crafts is a real studio; the charter must keep observed facts and assumptions separate. The earlier Harborline Logistics draft of chapter 1 is archived.
 
 Questions or corrections: open an issue, or find me at [kuu44](https://github.com/Kuu44) / [linkedin.com/in/kuu44](https://www.linkedin.com/in/kuu44).

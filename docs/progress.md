@@ -4,7 +4,7 @@ One row per chapter. Update the same day the project is sat. Listening without a
 
 | # | Chapter | Listened | Project sat | Pass bar | Artifacts | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | [Entering the field](guides/01-entering-the-field.md) | | | | | |
+| 1 | [Entering the field](guides/01-entering-the-field.md) — Mato Crafts / Promise Desk. Chapters 2–38 are not retargeted yet. | | | | | |
 | 2 | [Computer science and runtime choices](guides/02-computer-science-and-runtime-choices.md) | | | | | |
 | 3 | [Linux, shell, and Python](guides/03-linux-shell-and-python.md) | | | | | |
 | 4 | [Versioned delivery and the full-stack seam](guides/04-versioned-delivery-and-the-full-stack-seam.md) | | | | | |

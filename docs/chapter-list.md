@@ -4,9 +4,9 @@
 
 This is a linear, audiobook-first rendering of the [Forward Deployed Engineer roadmap](https://roadmap.sh/forward-deployed-engineer). It covers all 20 live FDE topic/subtopic nodes and the distinct supporting topics in the roadmap's [source content](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Some source records are aliases left by node renames (such as *APIs Design* / *API Design*); aliases are listed once, not taught twice.
 
-The visual roadmap intentionally points to prerequisite tracks rather than prescribing one long sequence. This course keeps its FDE shape by using one continuous customer-delivery build: **FieldOps Copilot**, an enterprise incident-and-request triage system. By the end, it has a real interface, service and data layers, an AI workflow, deployment infrastructure, operational evidence, and delivery artifacts for a customer.
+The visual roadmap intentionally points to prerequisite tracks rather than prescribing one long sequence. The course is being retargeted onto one real customer: **Mato Crafts**, a handmade jewellery studio in Patan, and one system, **Promise Desk**. Chapter 1 matches that customer. Chapters 2–38 below still describe the earlier Harborline / FieldOps draft. Do not sit those projects until their audio is rewritten. The retarget notes are in [the world plan](world-plan.md).
 
-**Practice rule for every chapter:** write the change yourself from an empty file or from the preceding FieldOps Copilot state. Do not paste a finished solution. Use documentation and tests to resolve gaps, then retain the result for the next chapter.
+**Practice rule for every chapter:** write the change yourself from an empty file or from the preceding Promise Desk state. Do not paste a finished solution. Use documentation and tests to resolve gaps, then retain the result for the next chapter. Chapters that still say FieldOps have not been rewritten.
 
 **Every chapter project is a test, not a tutorial.** The chapter audio teaches everything you need to attempt it: the concepts, the tradeoffs, the failure modes, how to verify your own work, and the customer situation it belongs to. The project then gives you a goal, constraints, a starting state, the artifacts you must produce, and a pass bar you grade yourself against. It does not give you steps to follow. The companion project guide holds inverted hints at the very end for when you are genuinely stuck — they are deliberately absent from the audio.
 
@@ -23,10 +23,10 @@ The visual roadmap intentionally points to prerequisite tracks rather than presc
 **Why an FDE cares:** An FDE succeeds by turning an ambiguous customer outcome into a maintainable deployed system—not by merely demonstrating a model or closing a ticket. Clear responsibility boundaries prevent promises the delivery team cannot keep.  
 **Tools:** customer problem brief, stakeholder map, responsibility matrix, architecture decision record (ADR).
 
-**Chapter project (test) — Create the FieldOps Copilot delivery charter**  
-**Goal:** A customer sponsor could read your charter and know exactly what the first release of FieldOps Copilot will do, for whom, and how success will be judged.  
-**Constraints:** One ordinary operations team with repeated incident triage. No implementation detail, no tooling, no architecture. Every claim about the customer is labelled as observed or assumed. Non-goals are mandatory. The measurable outcome must be something the customer already tracks or could start tracking this month.  
-**Required artifacts:** a one-page delivery charter; a responsibility matrix covering everyone who can make or block a decision, including the AI system; a risk register naming the evidence that would retire each risk.
+**Chapter project (test) — Charter Promise Desk for Mato Crafts**  
+**Goal:** Subhechha, a maker, and you can read one page and agree what the first release will change, who decides, and how success will be judged.  
+**Constraints:** The customer is Mato Crafts. The store already exists. No implementation detail. Every claim is labelled observed or assumed. Non-goals are mandatory. One outcome the studio could count this month. Promise Desk may suggest a promise and may not tell a customer yes.  
+**Required artifacts:** a one-page delivery charter; a responsibility matrix including the founder, a maker, you, and Promise Desk; a risk register naming the evidence that would retire each risk.
 
 **Pass bar**
 - A one-page charter names a customer problem, users, measurable outcome, and non-goals.

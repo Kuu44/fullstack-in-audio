@@ -1,99 +1,126 @@
-# Chapter 1 project — Create the FieldOps Copilot delivery charter
+# Chapter 1 project — Charter Promise Desk for Mato Crafts
 
-**Format:** open-book test. Everything you need was in the chapter audio. There are no build steps here by design.
-**Prerequisite:** listen to chapter 1 first. The guide assumes it.
+**Format:** open-book test. The thinking was in the chapter audio. There are no build steps here.
+**Prerequisite:** listen to chapter 1 first. Do not start from this page.
+**Customer:** Mato Crafts. Do not invent a replacement company.
 
 ---
 
 ## Goal
 
-Produce a delivery charter for the first release of FieldOps Copilot that a customer sponsor, an operator, a security reviewer, and an engineer can all read and come away with the same understanding of what is being built, for whom, and how success will be judged.
+Write a one-page delivery charter for the first release of Promise Desk that Subhechha, a maker, you, and a skeptical reader can all use to answer the same three questions: what problem the first release exists to change, who decides, and how you will know it worked.
 
 ## Starting state
 
-An empty file. Nothing exists yet — no repository, no code, no architecture. This is the real starting state of a field engagement, and it is deliberate.
+No code. No architecture. An empty page in [`fieldops/01-charter/`](../../fieldops/01-charter/README.md).
 
-Pick one customer to serve for the whole course. It must be an operations, facilities, or internal technology team that handles repeated incident or request triage. A customer you have actually observed is better than an invented one. If you have none, use Harborline Logistics from the chapter: forty depots, a nine-person operations desk, incidents arriving by email, urgency decided by human judgment, nothing measured.
+The situation brief below is the input. It is not the charter. Copying it into a document titled "charter" fails the test.
+
+### Situation brief
+
+Use these claims. Do not upgrade an assumed claim into an observed one. Do not add a financial figure.
+
+**Observed**
+
+- Mato Crafts is a handmade polymer-clay jewellery studio. Earrings are the core product. Founder: Subhechha Singh. Shop at Patan Dhoka, Lalitpur.
+- Pieces are made by hand. You have described makers at the bench. You have not, in this course, documented a separate factory.
+- Through Niyalo you shipped the live store: catalog, categories, custom orders, cart, sold-out states, payments, delivery, and inventory. You also ran Meta ads for the brand.
+- The ads were later paused because demand got ahead of what the makers could finish. That pause is observed. The precise afternoon failure underneath it is not fully written down yet.
+
+**Unknown — leave these unknown or go look. Do not invent them.**
+
+- Whether making happens only at the Patan shop, in another work room, or both.
+- Who reads a new order on a given day, and in what order (checkout, custom-request form, in-person, anything else).
+- How many orders a week the bench can start. Any daily capacity number you write without a count is assumed.
+- What today's promise-keeping rate is. Nothing in this brief is a baseline.
+- Revenue, profit, headcount, and ad spend. They are not inputs to this charter.
+
+**Already decided for the course**
+
+- The system under charter is Promise Desk. Release one is about promises the bench can keep. It is not a new store.
+- The store you already shipped stays. Replacing it is out of scope unless your charter explains why that would be reckless, as a non-goal.
+- Later chapters will build on whatever boundary you write here. Chapters 2 onward in the repo may still mention the old logistics story. Ignore that story.
 
 ## Constraints
 
-1. **One page.** If it does not fit, you have not decided yet.
-2. **No implementation detail.** No services, frameworks, models, databases, queues, or cloud providers. Not one.
-3. **Every factual claim is labelled** as observed or assumed. Unlabelled claims are treated as failures, not as minor omissions.
-4. **Exactly one measurable outcome.** It must be something the customer could measure within a month, and would recognise as mattering. If today's value is unknown, say so.
-5. **Non-goals are mandatory,** and each carries a reason based on risk, evidence, or sequence — not on your convenience.
-6. **The AI system is a party,** not a feature. It appears in the responsibility matrix with at least one explicit prohibition.
-7. **Deciding and doing are separated** for every party in the matrix.
-8. **No accuracy-style metric** as the headline outcome. The chapter explained why.
+1. **One page** for the charter itself. The matrix and the risk register may sit on a second sheet. If the charter does not fit, you have not decided.
+2. **No implementation detail.** No frameworks, vendors, models, databases, or "we will use AI." Not one.
+3. **Every claim is labelled** observed or assumed. Unknown stays unknown.
+4. **Exactly one measurable outcome.** The studio could compute it this month by hand if needed. The founder would recognize it. It is not a model-accuracy number, a satisfaction score, or a revenue target.
+5. **Non-goals are mandatory,** each with a reason from risk, evidence, or sequence.
+6. **Promise Desk has a row and a prohibition.** It may suggest. It may not tell a customer yes.
+7. **Deciding and doing are separated.** You do not take the brand's taste, the maker's hours, or the founder's risk as your decision.
+8. **Not a transcript.** If the page can be produced by rearranging this chapter's audio, rewrite it in your own sentences.
+9. **Nothing private in the repo.** No customer names from real orders, phones, addresses, payment data, or ad-account access.
 
 ## Required artifacts
 
-| Artifact | What it must contain |
-| --- | --- |
-| Delivery charter (one page) | Current workflow as it really happens; the costly failure; the users and their conflicting needs; one measurable outcome; the release boundary as three lists — does, does not, still requires a human |
-| Responsibility matrix | Every party who can make or block a decision — including the customer's operators, an administrator, you, the platform team, the security or governance approver, and the AI system — with what each decides, what each does, and where each escalates |
-| Risk register | At least three risks, each paired with the specific evidence that would retire it |
+Write these yourself. Paths:
 
-Keep all three. Chapter 2 takes its inputs from this charter, and later chapters revise it rather than replace it.
+| Artifact | File | What it must contain |
+| --- | --- | --- |
+| Delivery charter | `fieldops/01-charter/charter.md` | The workflow as it is, including what you do not know; the costly failure, distinct from "ads were paused"; the people and the conflict; one outcome; three lists — does, does not, still requires a human |
+| Responsibility matrix | `fieldops/01-charter/responsibility.md` | Founder, maker, you, whoever can stop a deploy or an ad change, and Promise Desk. For each: decides, does, escalates to |
+| Risk register | `fieldops/01-charter/risks.md` | At least three risks. Each names the evidence that would retire it. At least one risk is about the checkout still saying yes while the bench is full |
 
 ## Self-grade rubric
 
-Score each line yourself. Be strict: you are the only reviewer you have.
+Score each line. You are the only reviewer.
 
 **Pass bar — all six must be true**
 
-1. **Two-minute test.** You can explain the first release out loud without using a single implementation word.
-2. **Four-audience test.** A sponsor, an operator, a security reviewer, and an engineer each find their own primary concern addressed somewhere in the page.
-3. **Conflict is visible.** At least two stakeholders are documented as wanting incompatible things, and the charter does not pretend to resolve it by wishful wording.
-4. **The outcome is falsifiable.** You can state how today's value would be computed, even if the answer is "nothing records it yet, and establishing the baseline is task one."
-5. **Non-goals exist and bite.** At least one non-goal is something the customer will plausibly ask for, with a written reason.
-6. **The AI row has a prohibition.** Not only a capability list — a clear statement of what the system may never do without human approval.
+1. **Two-minute test.** You can explain the first release without an implementation word.
+2. **Conflict is on the page.** Growth and a finishable making day are both present, and the release picks a side for now.
+3. **The outcome is falsifiable.** You can say how today's value would be counted, even if the answer is "not recorded yet."
+4. **The system row prohibits an unapproved yes** to a customer.
+5. **You did not become the founder.** Taste, capacity, and commercial risk have a human owner who is not "the software."
+6. **Labels survive a read-back.** A sentence the founder could contradict from the shop floor is marked assumed, or it is gone.
 
 **Quality marks — aim for at least four**
 
-7. Every claim about the customer is explicitly observed or assumed.
-8. At least one party with a genuine veto is identified, and their path to yes is named.
-9. Each of your three risks has evidence that could actually be gathered during a pilot, not a vague "monitor closely."
-10. Deciding and doing are separated in at least three rows of the matrix, including yours.
-11. You did not give yourself authority over a business or security risk you cannot accept.
-12. The charter survives the deletion test: remove every sentence mentioning intelligence, automation, or models, and a real problem worth solving still remains on the page.
+7. "Ads were paused" is treated as a symptom, and the costly failure is a more specific operational event.
+8. At least one unknown from the brief is still unknown, with the observation that would settle it.
+9. A maker's refusal to use the tool is treated as a real veto.
+10. Each risk's evidence could be gathered in the studio this month.
+11. Deciding and doing are split in your row and in the founder's row.
+12. Delete every sentence about software. A problem worth solving remains.
 
 **Automatic fail**
 
-- The charter describes what you will build rather than what problem it solves.
-- Scope includes an integration, a mobile experience, or a second channel in the first release.
-- The headline outcome is a satisfaction score, a usage count, or a model-accuracy figure.
-- Nobody in the document is accountable when a recommendation turns out to be wrong.
+- The customer is anyone other than Mato Crafts.
+- The charter's subject is a new website.
+- The headline outcome is revenue, ad ROI, or model accuracy.
+- A capacity number, a headcount, or a revenue figure appears with no source you can point to.
+- The page tells Promise Desk it may confirm an order on its own.
 
 ## Stretch
 
-Pick one if the core work came easily.
+Pick one only after the pass bar is true.
 
-- Write the two-sentence version your sponsor would say to *their* leadership, and check that it contains no promise your charter does not support.
-- Write the paragraph you would send to the security lead asking for the earliest possible conversation — including what you already know about the data involved.
-- Identify the one sentence in your charter most likely to be contradicted in week six, and add the assumption label and validation method it needs.
+- Write the two sentences Subhechha would say to a maker about why the queue is changing. Check that those sentences promise nothing your charter does not.
+- Name the one claim you most need to verify by standing in the shop, and the question you would ask without pitching software.
+- Cross out the non-goal you most want to build. If that was painful, the non-goal section is doing its job.
 
 ## Verification you can run today
 
-- Hand the charter to another person. Ask them to tell you what the first release does and who is accountable when a suggestion is wrong. Say nothing while they read. Whatever they get wrong is a defect in your document, not in their reading.
-- Read your users section aloud and try to find the conflict. If there isn't one, you have written a sales page.
-- Count the words on your page. If it runs past one page, cut a paragraph rather than shrinking the font.
+- Read the charter aloud once, standing up. Any sentence you cannot say to the founder comes out or gets an assumed label.
+- Ask someone who has not heard the audio what the first release refuses to do. If they cannot answer, the boundary is still in your head.
 
 ---
 
 <!-- tts:skip -->
 ## If stuck — inverted hints
 
-These are deliberately last, and they are deliberately not in the audio. Read them one at a time, in order, and only after a genuine attempt. Each hint is a question, not an answer.
+Last on purpose. Not in the audio. Read one at a time, only after a real attempt. Each item is a question.
 
-1. Cannot start? Write the single worst thing that happened to this customer in the last quarter because of this workflow. One paragraph, no solution. That paragraph is your charter's opening.
-2. Charter reads like a build plan? Cross out every noun that is a piece of technology. If almost nothing survives, you wrote a design document. Start again from the workflow.
-3. Cannot pick one outcome? Ask which number the sponsor would quote to *her* boss to justify continuing. If two numbers compete, ask which one gets worse when the costly failure happens.
-4. Outcome has no baseline? Good — that is a real finding. Where would the raw material for the baseline exist today, even in an inconvenient form? Who would have to give you access to it?
-5. Matrix feels decorative? For each row ask: what happens if this party is unavailable for a week? If nothing stops, the row is not real and the responsibility is hiding somewhere else.
-6. Stuck on the AI row? Finish this sentence honestly: "The system may suggest ______, and a human must ______ before ______ happens."
-7. Cannot find the conflict? Ask what the operator would remove from the first release and what the sponsor would add. They are rarely the same item.
-8. Cannot find a veto holder? Ask who reviews any system that reads the text a customer's employee typed. If you do not know, that is your first meeting, not a gap in the exercise.
-9. Risks feel generic? A risk that would apply to any software project is not a risk for *this* charter. Reread your own costly-failure paragraph and ask what would have to be true for it to happen again after you ship.
-10. Still stuck on non-goals? List the three things you would most enjoy building. They are almost certainly non-goals for release one, and now you know why the section matters.
+1. Cannot start? Write one paragraph that begins "The store already works, and the studio still had to pause ads because..." Stop before you propose software.
+2. The page is a build plan? Delete every noun a vendor would sell you. Read what remains out loud.
+3. Two outcomes, cannot pick? Which number gets worse in the week a customer is promised a pair nobody can start?
+4. No baseline? Where, in the shop, would the raw marks already exist: a notebook, the order list, a stack of unfinished pieces? Who would hand them to you?
+5. Matrix feels like a form? For each row, what stops if that person is away for a week? If nothing stops, the row is fake.
+6. System row is mush? Complete this and then make it stricter: "The desk may say the bench looks full. A person must still ______ before a customer hears ______."
+7. No conflict? What would a maker remove from release one, and what would the founder add back the same day?
+8. Looking for a security department? Ask instead who is harmed if an order note, a phone number, or a custom design is pasted into a tool you do not control. That person has the veto.
+9. Risks are generic? Reread your costly-failure paragraph. What would have to be true for that same failure to happen after Promise Desk ships?
+10. Non-goals are easy? List the three things you would enjoy building this month. They are probably not release one.
 <!-- /tts:skip -->
