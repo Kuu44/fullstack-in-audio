@@ -4,7 +4,7 @@
 
 Turn the Forward Deployed Engineer (FDE) roadmap into an audiobook-first course that reliably converts listening into applied skill. The course is not a generic full-stack survey: its learning sequence follows the FDE roadmap's technical, operational, and customer-delivery topics, and all practice work accumulates into one customer-deployable system.
 
-The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade jewellery studio in Patan whose store Niyalo already shipped. The operational problem is a promise the bench cannot keep. Chapter 1 is retargeted. Later chapters still describe the earlier FieldOps draft until they are rewritten; see `docs/world-plan.md`. Each rewritten chapter should extend the previous Promise Desk state rather than starting a disconnected toy.
+The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade jewellery studio in Patan whose store Niyalo already shipped. The operational problem is a promise the bench cannot keep. Only chapter 1 is live. The earlier 38-chapter Harborline draft is in `archive/draft/`. A new chapter is written when asked, and it extends the previous Promise Desk state rather than starting a disconnected toy.
 
 ## Source boundary and coverage policy
 
@@ -101,7 +101,7 @@ The renderer lives in the course repository at `tts/render_lesson.py`; the repos
 ## Phases
 
 1. **Extract** — snapshot the FDE map and reconcile its topic/content records. *(Done.)*
-2. **Sequence** — flatten the roadmap into chapters and one accumulating FieldOps Copilot build. *(Done: the chapter list is the contract.)*
+2. **Sequence** — flatten the roadmap into chapters and one accumulating build. *(The first 38-chapter sequence is archived. Live sequence is chapter 1 until more are requested.)*
 3. **Expand for audio** — write full What/Why/How narration scripts and test-style project guides. *(In progress, chapter by chapter.)*
 4. **Render** — generate per-chapter audio with the edge-tts pipeline, verify duration, and run listening QA. *(In progress, chapter by chapter.)*
 5. **Listen then practice** — release the paired lesson, project guide, and rubric in chapter order.
@@ -109,9 +109,9 @@ The renderer lives in the course repository at `tts/render_lesson.py`; the repos
 
 ## Standing constraints
 
-- The chapter list is the curriculum contract: 38 chapters, full roadmap-topic coverage, FDE/customer context, tools, and a from-scratch stacked project after every chapter. Chapters may deepen; the sequence and coverage do not change without an explicit decision.
+- Live curriculum is whatever chapters have been written. Right now that is chapter 1. The archived draft is not a promise that those chapters will ship in that form.
 - Every shipped chapter needs all three artifacts: a lesson script, a project guide, and a verified audio file of at least 30 minutes.
 - Audio is spoken prose only. No code, JSON, URLs, file paths, or long commands are read aloud.
 - Project guides are tests. No implementation recipe, and hints only at the very end where the audio never reaches them.
-- No web application or course platform is scaffolded. The repository holds the curriculum, the rendered audio, and the FieldOps Copilot work.
+- No web application or course platform is scaffolded. The repository holds the live chapter, the archived draft, and the Promise Desk work.
 - A project may use a local or mock integration at first, but must require the learner to identify what would need to change before a real customer deployment.

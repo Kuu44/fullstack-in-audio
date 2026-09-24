@@ -1,6 +1,6 @@
 # World plan
 
-Notes for retargeting the course after chapter 1. Not a lesson. Do not treat chapters 2–38 as updated until their audio and guides say Mato Crafts.
+Notes for chapters that do not exist yet. Not a lesson. Chapters 2–38 of the first draft were moved to [`archive/draft/`](../archive/draft/README.md) on 2026-09-24. They are reference only. A new chapter is written when Kushal asks for it.
 
 ## Decision
 
@@ -37,11 +37,11 @@ Chapter 1 does not do that. It is a charter, not a language chapter.
 
 Each project should be something he can commit. Chapter 1's place is `fieldops/01-charter/`.
 
-## Chapter 2 is blocked on the charter
+## Next chapter, only when asked
 
-Do not sit the current chapter 2 project. Its audio still uses the logistics company and a triage-priority rule. After the charter exists, chapter 2 should be rebuilt as one promise rule taken from that charter, implemented in more than one runtime, with a written choice of which runtime this studio would actually run.
+Do not revive the archived chapter 2 as the assignment. If a next chapter is requested after the charter exists, the likely shape is one promise rule taken from that charter, implemented in more than one runtime, with a written choice of which runtime this studio would actually run, plus a syntax and file-structure explanation.
 
-## Later retarget, not done
+## Sketch kept from the old draft
 
 Same skills, new subject. Rough map from the old FieldOps exercises onto Promise Desk:
 
@@ -57,4 +57,4 @@ Same skills, new subject. Rough map from the old FieldOps exercises onto Promise
 | Eval | Did we recreate the "checkout says yes, bench is full" failure |
 | Handoff | The studio can run the desk without Kushal in the thread |
 
-Rewrite a chapter only when its lesson, guide, and audio all move together. Until then the old files stay, and the README says so.
+Rewrite a chapter only when asked, and only when its lesson, guide, and audio are written together for Mato Crafts. The archived files stay in the archive.

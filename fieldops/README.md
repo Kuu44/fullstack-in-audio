@@ -10,8 +10,6 @@ Chapter 1 is a charter, not code. Write it in [`01-charter/`](01-charter/README.
 
 | Layer | Status | First appears |
 | --- | --- | --- |
-| Charter, matrix, risks | Not started | Chapter 1, retargeted |
-| Promise rule | Not started | Chapter 2, after that chapter is rewritten |
-| Everything below | Not started | Later chapters still describe the old logistics draft |
+| Charter, matrix, risks | Not started | Chapter 1 |
 
-Chapters 2–38 have not been moved onto this studio yet. Do not implement their current projects against Harborline. The map of what they should become is in [`docs/world-plan.md`](../docs/world-plan.md).
+Nothing else is assigned. Notes for later chapters are in [`docs/world-plan.md`](../docs/world-plan.md). The old draft is in [`archive/draft/`](../archive/draft/README.md).
