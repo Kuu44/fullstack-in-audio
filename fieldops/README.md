@@ -12,4 +12,4 @@ Chapter 1 is a charter, not code. Write it in [`01-charter/`](01-charter/README.
 | --- | --- | --- |
 | Charter, matrix, risks | Not started | Chapter 1 |
 
-Nothing else is assigned. Notes for later chapters are in [`docs/world-plan.md`](../docs/world-plan.md). The old draft is in [`archive/draft/`](../archive/draft/README.md).
+Nothing else is assigned. Later chapters are written when you ask for them.

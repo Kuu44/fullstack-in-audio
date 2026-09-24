@@ -83,7 +83,7 @@ Every chapter ships as three files with the same number and slug:
 | Narration script | [`docs/lessons/NN-slug.md`](docs/lessons) | Source of the audio, with a TTS header that is not spoken. |
 | Project guide | [`docs/guides/NN-slug.md`](docs/guides) | Exam paper: goal, starting state, constraints, artifacts, pass bar, inverted hints. |
 
-The [project context](docs/project-context.md) is the production spec (length policy, guide rules, rendering contract). The old full outline is in [archive/draft](archive/draft/README.md).
+The [project context](docs/project-context.md) is how a chapter is produced: length, guide rules, and how the audio is rendered.
 
 ```mermaid
 flowchart LR
@@ -106,9 +106,7 @@ flowchart LR
 
 One system, for one studio. **Mato Crafts** already has a store. The course builds the limit that store was missing: a promise the bench can keep. By the capstone it should have a real interface, a service, a record of who promised a date, a bounded suggestion path, and a handoff the studio can run without you.
 
-Chapter 1 is the charter. The AI, when it exists, suggests. A human tells the customer yes or no. Nothing confirms an order on its own.
-
-The old draft of later chapters is in [archive/draft](archive/draft/README.md). It is not the assignment. The previous chapter 1 recording is in [archive/harborline](archive/harborline/).
+Chapter 1 is the charter. When a suggestion exists, a human tells the customer yes or no. Nothing confirms an order on its own.
 
 ```mermaid
 flowchart TB
@@ -141,7 +139,7 @@ Only chapter 1 is live.
 | --- | --- | --- | --- | --- |
 | 1 | Entering the FDE field | [mp3](media/01-entering-the-field.mp3) | [script](docs/lessons/01-entering-the-field.md) | [charter for Mato Crafts](docs/guides/01-entering-the-field.md) |
 
-Chapters 2–38 from the first draft, including their audio, are in [archive/draft](archive/draft/README.md). New chapters are written when asked. Notes for that are in [the world plan](docs/world-plan.md).
+Further chapters are written when you ask for them.
 
 ---
 
@@ -194,9 +192,6 @@ Those tools show up only in a chapter that is actually written. An assistant doe
 │   └── world-plan.md
 ├── media/01-entering-the-field.mp3
 ├── fieldops/01-charter/
-└── archive/
-    ├── harborline/     ← previous chapter 1
-    └── draft/          ← old chapters 2–38
 ```
 
 Chapter 1 audio is already rendered.
@@ -219,7 +214,6 @@ If you fork this: keep the listen-then-test loop. Turning the guides into tutori
 | Piece | State |
 | --- | --- |
 | Chapter 1 lesson, test, and audio | Live |
-| Chapters 2–38 | Archived in `archive/draft`. Not assignments. |
 | Promise Desk charter | Not written yet |
 | Progress | [Empty log](docs/progress.md) |
 
@@ -227,6 +221,6 @@ If you fork this: keep the listen-then-test loop. Turning the guides into tutori
 
 ## Attribution
 
-Curriculum sequence follows the public [Forward Deployed Engineer roadmap](https://roadmap.sh/forward-deployed-engineer) and its [source topics](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Lesson prose, project tests, and audio are original to this repo. Mato Crafts is a real studio; the charter must keep observed facts and assumptions separate. The earlier Harborline draft, including chapters 2–38, is in `archive/`.
+Curriculum sequence follows the public [Forward Deployed Engineer roadmap](https://roadmap.sh/forward-deployed-engineer) and its [source topics](https://github.com/nilbuild/developer-roadmap/tree/master/roadmaps/forward-deployed-engineer/content). Lesson prose, project tests, and audio are original to this repo. Mato Crafts is a real studio. The charter keeps observed facts and assumptions separate.
 
 Questions or corrections: open an issue, or find me at [kuu44](https://github.com/Kuu44) / [linkedin.com/in/kuu44](https://www.linkedin.com/in/kuu44).

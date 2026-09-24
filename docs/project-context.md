@@ -4,7 +4,7 @@
 
 Turn the Forward Deployed Engineer (FDE) roadmap into an audiobook-first course that reliably converts listening into applied skill. The course is not a generic full-stack survey: its learning sequence follows the FDE roadmap's technical, operational, and customer-delivery topics, and all practice work accumulates into one customer-deployable system.
 
-The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade jewellery studio in Patan whose store Niyalo already shipped. The operational problem is a promise the bench cannot keep. Only chapter 1 is live. The earlier 38-chapter Harborline draft is in `archive/draft/`. A new chapter is written when asked, and it extends the previous Promise Desk state rather than starting a disconnected toy.
+The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade jewellery studio in Patan whose store Niyalo already shipped. The operational problem is a promise the bench cannot keep. Chapter 1 is the live course. A later chapter is written when asked, and it extends this charter rather than starting from a blank company.
 
 ## Source boundary and coverage policy
 
@@ -19,7 +19,7 @@ The learner's running build is **Promise Desk** for **Mato Crafts**, a handmade 
 Every chapter is shipped as a paired unit:
 
 1. **Listen:** a full audio lesson teaches everything needed to *attempt* the chapter project unaided — concepts, tradeoffs, failure modes, verification method, and the customer context an FDE is working inside. It is a taught chapter, not a topic survey.
-2. **Pause and plan:** the learner names the change they will make to FieldOps Copilot before opening tools.
+2. **Pause and plan:** the learner names the change they will make to Promise Desk before opening tools.
 3. **Sit the project:** the learner opens the chapter's project guide, which is written as a test. It states the goal, constraints, starting state, required artifacts, and a self-grade rubric. It contains no implementation recipe.
 4. **Self-grade:** the learner scores their own result against the rubric and records one short decision note or artifact.
 5. **Carry forward:** the next chapter starts from the working state just built.
@@ -77,7 +77,7 @@ Each chapter ships a companion guide at `docs/guides/NN-slug.md`. It is written 
 Rules that hold for every guide:
 
 - **No implementation recipe.** No numbered build steps, no code, no command sequences, no library choices made on the learner's behalf. State the required outcome and let the learner find the route.
-- **From scratch or from prior state.** Practice is typed and decided, never pasted. A chapter either starts from an empty file or from the FieldOps Copilot state the previous chapter left behind.
+- **From scratch or from prior state.** Practice is typed and decided, never pasted. A chapter either starts from an empty file or from the Promise Desk state the previous chapter left behind.
 - **Hints are inverted and last.** The "If stuck" section is printed upside-down in spirit: it is a list of questions and nudges, ordered from gentlest to most specific, and it is explicitly *not* part of the audio. A learner who listened to the chapter should never hear the hints.
 - **Grading is observable.** A rubric line must describe something the learner can see, run, or show another engineer — not a feeling of completeness.
 - **Mock is allowed; pretending is not.** A guide may permit a local or mock integration, but it must require the learner to name what would have to change before a real customer deployment.
@@ -101,7 +101,7 @@ The renderer lives in the course repository at `tts/render_lesson.py`; the repos
 ## Phases
 
 1. **Extract** — snapshot the FDE map and reconcile its topic/content records. *(Done.)*
-2. **Sequence** — flatten the roadmap into chapters and one accumulating build. *(The first 38-chapter sequence is archived. Live sequence is chapter 1 until more are requested.)*
+2. **Sequence** — one customer, one accumulating build. Chapter 1 is live. Later chapters are written when asked.
 3. **Expand for audio** — write full What/Why/How narration scripts and test-style project guides. *(In progress, chapter by chapter.)*
 4. **Render** — generate per-chapter audio with the edge-tts pipeline, verify duration, and run listening QA. *(In progress, chapter by chapter.)*
 5. **Listen then practice** — release the paired lesson, project guide, and rubric in chapter order.
@@ -109,7 +109,7 @@ The renderer lives in the course repository at `tts/render_lesson.py`; the repos
 
 ## Standing constraints
 
-- Live curriculum is whatever chapters have been written. Right now that is chapter 1. The archived draft is not a promise that those chapters will ship in that form.
+- Live curriculum is the chapters that have been written. Right now that is chapter 1.
 - Every shipped chapter needs all three artifacts: a lesson script, a project guide, and a verified audio file of at least 30 minutes.
 - Audio is spoken prose only. No code, JSON, URLs, file paths, or long commands are read aloud.
 - Project guides are tests. No implementation recipe, and hints only at the very end where the audio never reaches them.

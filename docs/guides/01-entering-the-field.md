@@ -39,7 +39,7 @@ Use these claims. Do not upgrade an assumed claim into an observed one. Do not a
 
 - The system under charter is Promise Desk. Release one is about promises the bench can keep. It is not a new store.
 - The store you already shipped stays. Replacing it is out of scope unless your charter explains why that would be reckless, as a non-goal.
-- Later chapters will be written when you ask for them, and they will start from this charter. The old drafts in the archive are not the assignment.
+- The next piece of work, when it exists, starts from this charter.
 
 ## Constraints
 

@@ -1,277 +1,226 @@
 <!-- tts:skip -->
-## TTS notes — chapter 1 (Mato Crafts rewrite)
+## TTS notes — chapter 1
 
-- Voice: `en-US-AndrewNeural`, rate `-14%` (about 146 words per minute).
-- Say "F D E" as three letters. The renderer substitutes this.
-- "Mato" is Mah-toe. "Subhechha" is Soo-bhek-cha. "Niyalo" is Nee-yah-lo. "Patan Dhoka" is Pah-tahn Doe-kah.
-- Do not speak this block. Do not speak the hints in the project guide.
-- `[pause]` is a beat of silence at a turn, not mid-sentence.
+- Voice: `en-US-AndrewNeural`, rate `-14%`.
+- "F D E" is three letters. "Mato" is Mah-toe. "Subhechha" is Soo-bhek-cha. "Niyalo" is Nee-yah-lo. "Patan Dhoka" is Pah-tahn Doe-kah.
+- Nothing in this block is spoken. The project guide's hints are not spoken.
+- `[pause]` is a beat of silence between ideas.
 <!-- /tts:skip -->
 
-Welcome back to FullStack in Audio. This is chapter one again: entering the forward deployed engineering field. [pause]
+This is FullStack in Audio. Chapter one. Entering the forward deployed engineering field. [pause]
 
-If you already listened to the first version, set it aside. That version used a logistics company I invented, with depots and a vice president and a security team you have never met. You told me, correctly, that you are not inside an organization like that, and that asking you to invent one would not produce a useful charter. So this chapter has a real customer. One you already shipped for.
+You are listening while you move, so here is the shape of the hour before any story. Six parts. First, the studio this course is about, which is a studio you already know. Second, what a forward deployed engineer is, said in plain language and then pinned to that studio. Third, who gets to decide what, when the company is small enough to fit in one room. Fourth, the shift this asks of you, specifically, because you already ship websites for a living. Fifth, one failure, told as a scene, so the paperwork has a reason. Sixth, how to write a one-page charter, and how you will know the page is finished.
 
-Before the scene, the same warning as last time, because the shape of the course did not change. This chapter is a full listen, and at the end there is a project. The project is an exam, not a tutorial. It gives you a goal, constraints, the artifacts you have to produce, and a rubric you grade yourself against. It does not give you steps. There is no finished charter to copy, including from this audio. I will show you how to think. I will not read you the page. If you get stuck, the written guide has hints at the very bottom, one question at a time. Try first. [pause]
+By the end you should be able to explain the first release of a system called Promise Desk without naming a tool, and you should be able to sit down and write that page yourself. The audio teaches the judgment. It does not read you the finished page. The written guide, which you open after this, is the test. Hints live at the bottom of that guide. Leave them alone until you have tried. [pause]
 
-## The customer is already yours
+## The studio
 
-The customer is Mato Crafts. Patan. Handmade polymer-clay jewellery, especially earrings. The founder is Subhechha Singh. There is a shop at Patan Dhoka. The pieces are made by hand. You, through Niyalo, already built the store: catalog, custom orders, cart, sold-out states, payments, delivery, inventory, and the site itself. You also ran the Meta ads.
+Part one. The studio. [pause]
 
-Hold that last pair of facts together, because they are the whole chapter.
+Mato Crafts makes jewellery by hand in Patan. Polymer clay. Earrings, mostly. The founder is Subhechha Singh. There is a shop at Patan Dhoka. Someone shapes the clay, bakes it, and finishes a pair. That day has a size. It does not stretch because a webpage is confident.
 
-The store can take an order. The ads can create more orders. The bench cannot magically absorb them. You already know the consequence, because it happened: the ads were paused when demand got ahead of what the makers could finish.
+You already built the store, through Niyalo. Catalog. Categories. Custom orders. A cart. A way to mark something sold out. Payments. Delivery. Inventory. And you ran the ads.
 
-That pause is not a small marketing footnote. It is a founder choosing not to break promises. It is also growth turned off, on purpose, because the operation could not keep the promise the storefront was making. Dana, in the old version of this chapter, wanted refrigeration alarms to stop sitting in an inbox. Subhechha's version of that sentence is quieter and closer to you. She does not need another website. She has one. She needs the studio to be able to say yes to an order without the bench paying for that yes in missed dates, rushed clay, or ads that have to be switched off.
+Hold the store and the ads together, because they are the reason this chapter exists.
 
-That is a forward deployed problem. And the awkward part is that you are already the person who built the surface customers buy through. [pause]
+The store can accept an order at any hour. The ads can bring more orders. The bench cannot absorb an infinite Tuesday. You have already seen what happens when those three disagree. The ads were paused, because demand got ahead of what the makers could finish.
 
-## What a forward deployed engineer actually is
+Say that back, while you are still moving. The ads were paused. That is observed. It is also not yet the problem. It is the symptom. A founder turned demand off on purpose, rather than let the studio promise a pair the hands could not make. Growth stopped in order to protect the work. Subhechha does not need another website. She has one. She needs a way to say yes that does not end with the ads switched off, a customer waiting, or a maker staying late to rescue a date the checkout invented.
 
-A forward deployed engineer is an engineer who builds and delivers working software inside a customer's environment, accountable for the outcome the customer cares about rather than for a component in a backlog.
+That is the job of Promise Desk. Not a second store. A limit on the promise. [pause]
 
-Three parts. Each one is load-bearing. I am going to say them in general, and then say what they mean at Mato, because the general version is how the role is defined and the Mato version is how you will practice it.
+Before the definition, one question. If you had to tell a friend why the ads were paused, in a single sentence that does not mention software, what would you say? Keep your answer. You will need a sharper version of it on the page. [pause]
 
-First: an engineer. You write the system. You read the logs. You decide what is stored, who can see it, and what happens when it fails. This is not a strategy role with a technical vocabulary. If you cannot build the thing, you cannot do the job. You already clear this bar. You have shipped stores, inventory, invoices, dashboards. Do not spend this course re-proving that you can make a page. Spend it on the parts a page does not cover.
+## What the role actually is
 
-Second: inside a customer's environment. Not in a clean repository with your favorite stack and your favorite assumptions. The environment is an input. At a large enterprise that means their identity provider, their cloud rules, their change window, their security review. At Mato it means something smaller and, for you, more dangerous, because it is familiar. The shop already has a live store that you built. Payments already exist. Sold-out already exists as a state on the site. Custom orders already exist as a path. The part you did not build is the bench: how a maker's day actually fills up, which designs are slow, which custom request is a polite no, who notices that a product should have been marked unavailable yesterday. That bench is the environment. If your design assumes the website is the business, you have already left the customer's environment and gone back to your own.
+Part two. The role. [pause]
 
-Third: accountable for the outcome. A correct feature that nobody uses is a failed delivery. Your unit of success is a change in how the studio works, measured in something the founder already recognizes. "The new screen looks better" is not that. "We stopped accepting orders the bench cannot start" might be. You will choose the measure in the project. I am not choosing it for you.
+A forward deployed engineer is an engineer who builds and delivers working software inside a customer's environment, and is accountable for the outcome the customer cares about, rather than for a piece of a backlog.
 
-Now the boundary that makes this role confusing, because a forward deployed engineer sits between other jobs, and at a studio of this size those jobs are sometimes the same human wearing different hats. [pause]
+Three parts. Each one carries weight. I will say the general version, then the version that applies to you at this shop.
 
-## Who owns what, when the company is small
+First, an engineer. You write the system. You read what it did. You decide what is stored, who can see an order, and what happens when a payment succeeds and the bench is already full. This is not a strategy title with technical words glued on. If you cannot build it, you cannot do the job. You already clear this bar. You have shipped stores, inventory, invoices, dashboards. Do not use this course to prove you can make a page. Use it for the part a page does not cover: the promise behind the page.
 
-In a big delivery, four groups are easy to point at.
+Second, inside a customer's environment. The environment is an input, not a nuisance. In a large company that means their login system, their cloud rules, their change window, their security review. At Mato the environment is smaller, and for you it is more dangerous, because it feels like yours. You built the store. Payments exist. Sold out exists. Custom orders exist. What you did not build is the bench. Which designs are slow. Which custom request is a polite no. Who notices, and how late, that a product should have been marked unavailable yesterday. If your design assumes the website is the business, you have left the customer's environment and gone back to your own.
 
-Product engineering owns the reusable core. They are right to refuse a one-customer fork.
+Third, accountable for the outcome. A correct feature that nobody uses is a failed delivery. Your unit of success is a change in how the studio works, measured by something the founder already recognizes. A prettier screen is not that. Fewer accepted orders that the bench cannot start might be. You will choose the measure. I will not choose it for you.
 
-Solutions and sales engineering own the promise made before you arrived. They demonstrated a future. You inherit it.
+There is a last clause that people skip. The system has to keep working after you leave. A queue that only functions while you are the person marking things sold out, or while you are in the message thread, is not a deployment. It is you, rented as a feature. [pause]
 
-The platform team owns the substrate: accounts, networks, deploys, cost, on-call.
+What the role is not, because the title attracts the wrong picture.
 
-The customer's own people own the work. Operators do it. Administrators hold permissions. A security reviewer can veto. A sponsor holds the budget.
+It is not a demo. You can make a model say "this order looks urgent" in an afternoon. The hard part is the date, the clay, and the person who is blamed when a customer is told the pair will be ready.
 
-A forward deployed engineer produces the thing none of those four produce alone: one specific system, in that environment, for that outcome, that still runs after you leave.
+It is not a slide of recommendations. You are measured on a running change in the studio. This chapter's document is the exception. It exists so the running system has a boundary. The document is not the delivery.
 
-After you leave. Say that again when you are tempted to be the permanent operator of Mato's queue. A desk that only works while you are in the Instagram thread, or while you are the one marking things sold out by hand, is not a deployment. It is you, rented as a feature.
+It is not a rewrite of the store you already shipped. Throwing that away to build a grand new platform gives a small studio two systems and zero extra hours.
 
-At Mato, draw the same four groups honestly, even where the org chart is one room.
+And it is not unpaid management of their whole brand. You will ask questions because you cannot set the right limit without them. You will not substitute questions for the system. This chapter is the charter. The system comes after the charter exists. [pause]
 
-Product, for you, is Niyalo's ability to ship a store again for the next brand. You have done this shape of work more than once. ReFashion was orders moving off Instagram DMs onto a store with inventory. Mato is handmade jewellery with custom orders and a bench behind the catalog. If every Mato exception is hardcoded into a Mato-only pile, the next studio starts from zero and this one becomes unmaintainable. The reusable part and the Mato-only part have to be distinguishable. You will not draw that split in this chapter. You will refuse to pretend it does not matter.
+Question, before we move. In one sentence: what are you accountable for at Mato that a finished website does not already prove? [pause]
 
-Solutions, for you, is the proposal you already kept. The store shipped. Payments work. Ads ran. The dangerous misread is that "we built the store" was heard as "the studio can now accept whatever demand the ads create." Those are different sentences. A forward deployed engineer writes down which sentence was actually promised.
+## Who decides, in one room
 
-Platform, for you, is not a four-person team named Marcus. It is the accounts this shop already depends on: the store, the payment provider, the ad account, wherever product photos live. Some of those you administer. That is a risk, not a convenience. If the only person who can deploy, refund, or explain a sold-out flag is you, you are the platform team, and you are also the single point of failure. Write that down. Do not invent a platform department to make the charter look enterprise.
+Part three. Who decides. [pause]
 
-The customer is Subhechha, and the people who make the pieces, and whoever actually reads a new order on a given afternoon. Those might be the same person at different hours. A founder who sells in the shop, answers a custom request, and also makes jewellery is three stakeholders in one body. Your charter has to show the conflict inside that, not average it into "the client wants growth."
+In a big delivery, four kinds of responsibility are easy to point at, because they wear different badges.
 
-And the system you have not built yet, which this course will call Promise Desk, is a fifth party. It gets a row. It is not a feature. It is a participant with permissions and a prohibition.
+Product work owns the reusable core. The thing you could ship again for another studio, without forking the whole project for one customer's exceptions.
 
-What the role is not, still, because the title attracts the wrong story.
+The promise made before the build owns the expectation. Someone, often you, already told the founder what the store would do. You inherit that sentence.
 
-It is not a demo. You can make a model say "this order looks urgent" in an afternoon. The hard part is the promise, the stock, the maker's hours, and the person who is blamed when a customer in Kathmandu, or abroad, is told a date the clay cannot meet.
+The platform owns the accounts the shop already depends on. The store, the payments, the ad account, the place the photos live. Whoever can change those is the platform, even if that person is you on a Sunday.
 
-It is not a slide deck of recommendations. You are measured on a running change in the studio, not on a document that describes one. This chapter's document is the exception. It exists so the running system later has a boundary. It is not the delivery.
+The customer's own people own the work. They make the pieces. They sell them. They can refuse a tool by simply not using it.
 
-It is not a hero rewrite. You already have a store. Throwing it away to build a romantic new platform is how a small studio gets a second system and zero capacity.
+A forward deployed engineer produces the thing none of those four produce alone. One specific system, in that shop, for that outcome, that still runs when you are not in the room.
 
-It is not unpaid product management. You will do discovery because you cannot build the right limit without it. You will not substitute discovery for the system. Chapter one is the charter. The system starts after the charter exists. [pause]
+At Mato, draw those four honestly. Do not invent a department so the page looks like a big company.
 
-## Coming from the work you already do
+Product, for you, is Niyalo's ability to ship a store again. You have done this shape of work more than once. If every Mato exception is hardcoded into a Mato-only pile, the next studio starts from zero, and this one becomes something only you can touch. You will not draw that split in this chapter. You will refuse to pretend it does not matter.
 
-Most people enter this role from somewhere else. I am going to spend the time on your somewhere, and then name the others briefly so you can recognize them when a teammate, or a future you, shows up with a different bias.
+The promise already made is the store itself. It shipped. Payments work. Ads ran. The dangerous misreading is that "we built the store" was heard as "the studio can now accept whatever demand arrives." Those are different sentences. Write down which one was actually promised.
 
-You come from agency delivery and product engineering. Niyalo designs, brands, and ships. Sites, stores, inventory, invoices. Youanai is a product company where you own a large share of the engineering. That combination is rare and it is also the trap. You are used to a brief, a build, a launch, and a handoff of the website. The customer is happy when the site is live. Forward deployed work is happy when a number in the operation moves, and stays moved after the launch week.
+Platform, here, is not a team with a name. It is the accounts. Some of them you administer. That is a risk, not a convenience. If the only person who can explain a sold-out flag, or deploy a change, is you, then you are the platform, and you are also the single point of failure. Put that on the page.
 
-So the transition, for you specifically, is this. Stop treating "the store is in production" as the end of the engagement. The store is the environment you landed in. The outcome is upstream of the store: what the bench can promise this week. Your old success habit is shipping the interface the proposal named. The new habit is noticing when that interface is making a promise the workshop cannot keep, and treating that as your problem even though nobody wrote it in the original scope.
+The customer is Subhechha, and the people who make the pieces, and whoever actually reads a new order on a given afternoon. Those might be the same person at different hours. A founder who sells in the shop, answers a custom request, and also makes jewellery is three stakeholders in one body. Your charter has to show the conflict inside that. It must not average it into "the client wants growth."
 
-If the scope is wrong, staying neatly inside the scope is a failure. That sentence is the whole career change. It will feel rude the first time you use it, because good agency work is partly the discipline of not rebuilding the client's entire company. You still need that discipline. The charter is how you aim it. You widen the problem on purpose, then you narrow the first release on purpose. Widen without narrowing and you have volunteered to run their operations. Narrow without widening and you have shipped another screen.
+And Promise Desk is a fifth party. It gets a row. It is not a feature. It is a participant with a permission and a prohibition. [pause]
 
-Other starting points, quickly, so the definition is not only autobiographical.
+Question. Who, in this shop, can stop the work without calling a meeting? Name at least two. One of them is the founder. The other might be a maker who ignores the tool. [pause]
 
-From backend work, people bring services and failure handling, and they usually wait too long for a product manager to resolve a fuzzy requirement. In the field, waiting is a decision.
+## The shift this asks of you
 
-From frontend work, people bring the rare instinct for whether a human can use the thing under pressure. They usually need the operational layer: durability, identity, deploy.
+Part four. Your shift. [pause]
 
-From data work, people see the stale table first. They usually need the path a human is waiting on.
+You come from studio delivery and product engineering. Niyalo designs, brands, and ships. Sites, stores, inventory, invoices. Youanai is a product where you own a large share of the engineering. That combination is rare, and it is also the trap. You are used to a brief, a build, a launch, and a handoff of the website. The customer is happy when the site is live. This kind of work is happy when a number in the operation moves, and stays moved after launch week.
 
-From machine learning work, people know what a model cannot do. They usually need the boring release discipline that makes a model safe to trust.
+So the change, for you, is specific. Stop treating "the store is in production" as the end. The store is the environment you landed in. The outcome sits behind the store: what the bench can promise this week. Your old success habit is shipping the interface the work named. The new habit is noticing when that interface is making a promise the workshop cannot keep, and treating that as your problem even when nobody wrote it in the original scope.
+
+If the scope is wrong, staying neatly inside the scope is a failure. That sentence is the career change. It will feel rude the first time you use it, because good client work includes the discipline of not rebuilding someone's entire company. You still need that discipline. The charter is how you aim it. You widen the problem on purpose, then you narrow the first release on purpose. Widen without narrowing, and you have volunteered to run their operations. Narrow without widening, and you have shipped another screen.
+
+Other people arrive at this role from other places. I will name them briefly, so you can recognize the bias, including your own.
+
+From backend work, people bring services and failure handling, and they often wait for someone else to resolve a fuzzy requirement. Waiting is itself a decision.
+
+From interface work, people bring the rare sense of whether a human can use the thing under pressure. They usually still need durability, identity, and deploy.
+
+From data work, people see a stale table first. They usually still need the path a human is waiting on.
+
+From model work, people know what a model cannot do. They usually still need the dull release habits that make a suggestion safe to trust.
 
 From consulting, people can run a room. They need the credibility of having built the thing.
 
-Your version of the missing piece is not syntax. You will get syntax later, in the chapters where you write the system, and those chapters will slow down and show the shape of a file, not only the idea. Not this chapter. This chapter is the aim. [pause]
+Your missing piece is not syntax. When a later chapter asks you to write code, it will slow down and show what a file is, what each part does, and how it fails. This chapter is the aim. [pause]
 
-## What the first two weeks look like when you already built the site
+Question. Complete this sentence out loud. The store launched, and the studio still had to pause the ads because... [pause]
 
-Here is the picture, and I want you to notice how little of it is a new framework.
+## How a missing boundary breaks
 
-You start by watching the making, not by interviewing the founder about the making. You already know how she talks about the brand. You do not yet know, unless you have stood there, what a Tuesday afternoon does to a custom request. Sit where the pieces are made, or where orders are accepted, and be quiet. You are looking for the second list. Every operation has an official path and a list that actually runs the day. At a studio this might be a notebook, a notes app, a stack of half-finished pairs, a message thread, a mental count of "we can do three of the hard ones." Nobody puts that list in the proposal. It is the system of record whether you like it or not.
+Part five. The failure. [pause]
 
-Then you find the boundaries of the environment you think you already know. Where does a new order land, in practice, not in the sitemap? Who is allowed to mark something sold out, and how late do they notice? What leaves the shop when a customer pays: name, phone, address, a note about a custom design? Which of those would be unacceptable to paste into a model? You built the store, so you will be tempted to answer from memory of the schema. Memory of the schema is not the same as watching the afternoon. Label the difference. Observed means you saw it or you have a record from the delivery you can point at. Assumed means you are guessing, including educated guesses from having built the checkout.
+"Write down who decides" sounds like paperwork until you watch the afternoon it prevents.
 
-Then you find the approval path. At Mato this is not a monthly governance board you have never heard of. It might still surprise you. Who can turn ads back on? Who can promise a date to a custom client? Who can refuse a design the studio does not want to make? Who can decide that your software is allowed to read order notes? A stakeholder has a wish. An approver can stop the work. Subhechha can stop the work. A maker who will not trust the queue can also stop it, by simply not using it, which is a veto with no meeting.
+The store is live. A product can be ordered. Ads have, in the past, created more demand than the bench could finish, and the ads were paused. Picture the next version of that mistake, because the pause is the symptom you already lived. The charter has to name the failure underneath. I will show you the shape. You will name it.
 
-Only then do you write the charter. It should feel like notes from what you learned, compressed to a page. If it feels like a pitch, you started too early.
+A customer orders a pair, or asks for a custom one. Someone says yes. The yes might be the checkout itself, which is a yes the website gives without asking the bench. Or the yes might be a human reply, sent because the shop was busy and the message felt small. The maker is already full. The date slips. The founder now has an unhappy customer, a half-finished piece, and a reason to fear the next ad. So demand gets turned off. The website is working. The outcome is not.
 
-Somewhere in those two weeks you also produce one small piece of evidence, not the system. A count. How many orders arrived in a week you can actually reconstruct. How many were custom. How many were later delayed, remade, or refused. Even a rough count from a notebook is more useful than a mood. It does two things. It gives the outcome measure a baseline, and it stops you from designing for a volume you invented.
+If nobody wrote down who may promise a date, here is the argument that follows. The founder believes the store was supposed to grow the studio, so the store failed. The maker believes they were buried by promises they did not make. You believe you shipped what was scoped: catalog, payment, delivery, inventory. Everyone is partly right. That means the engagement has no owner for the only sentence that matters.
 
-What is absent, still: picking a framework, drawing a schema, calling a model. Those are later chapters. Strong engineers start there because building is comfortable. What they build is often correct and beside the point. You are especially exposed to this, because you can build a store in your sleep. Do not build a second one. [pause]
+That is a boundary failure. It can be prevented on paper, before any new code. An unwritten assumption waits until it is expensive. Yours, if you leave it unwritten, is this: a live checkout is the same thing as a promise the bench can keep. It costs nothing on launch day. It costs the ads, later.
 
-## How a missing boundary actually breaks
+There is a second cost, and it is yours. People in this role burn out from unbounded responsibility, not from hard work. If the charter says you own the brand, the clay, the ads, the refunds, and the code, you have accepted a job the founder did not give you. The page protects the studio and it protects you. Deciding and doing stay separate. You may build the desk. You do not get to decide which custom design the studio is willing to make. [pause]
 
-Let me make the failure concrete, because "write down responsibilities" sounds like paperwork until you watch the meeting it prevents.
+## How to write the page
 
-The store is live. A product can be ordered. Ads have, in the past, created more demand than the bench could finish, and the ads were paused. Imagine the next version of that mistake, because the paused ads are the symptom you already lived. The symptom is not yet the charter's costly failure. You have to decide what the failure underneath was. I will show you the shape. You will name it.
+Part six. The page. [pause]
 
-A customer orders a pair, or asks for a custom one. Someone says yes. The yes might be the checkout itself, which is a yes the website gives without asking the bench. Or the yes might be a human reply. The maker is already full. The date slips. The founder now has an angry customer, a half-made piece, and a reason to fear the next ad. So demand gets turned off. Revenue the studio wanted does not arrive. The website is "working." The outcome is not.
+The project is a one-page delivery charter for the first release of Promise Desk, for Mato Crafts. One page, because if it does not fit, you have not decided. Four readers have to recognize themselves. The founder. A maker. You, as the engineer. And a future person who has to trust the limit when a suggestion is wrong. At this studio that fourth person might also be the founder. Write it so a skeptical friend can still find that concern.
 
-Whose failure is that, if nobody wrote it down?
+A verbal map for the page, six rooms, so you can hold them while you run. The failure. The people. The measure. The boundary. The roles. The risks. Say those six once. Failure, people, measure, boundary, roles, risks. [pause]
 
-If you never wrote it down, here is the argument. The founder believes the store was supposed to grow the studio, so the store failed. The maker believes they were buried by promises they did not make. You believe you shipped what was scoped: catalog, payment, delivery, inventory. Everyone is partly right, which means the engagement has no owner for the only sentence that matters: who is allowed to promise a date.
+The failure room comes first, and it is not a solution. Write the workflow as it actually happens, including the ugly parts and the parts you do not know. You know some of it because you built it. The studio sells handmade pieces through a live store. The store has a catalog, custom orders, a cart, payments, delivery, and a way to show that something is sold out. Makers produce the pieces by hand. Ads were paused because demand outran making.
 
-That is a boundary failure. It was available to prevent before any new code. An undocumented assumption is a liability with a delayed trigger. Yours, if you leave it unwritten, is this one: a live checkout is the same thing as a promise the bench can keep. It costs nothing on launch day. It costs the ads, later.
+You do not know, unless you have watched it, the exact afternoon path. Do not invent a process to sound thorough. Write unknown where it is unknown. A charter that fabricates the shop floor is worse than a short one.
 
-There is a second cost, and it is yours. Forward deployed engineers burn out from unbounded responsibility. If the charter says you are accountable for the brand, the clay, the ads, the refunds, and the code, you have accepted a job the founder did not give you and cannot pay you to finish. The page protects the studio and it protects you. Deciding and doing stay separate. You may build the desk. You do not get to decide which custom design the studio is willing to make. [pause]
+Then separate the symptom from the costly failure. "Ads were paused" is observed. It is a symptom. The costly failure is the thing that made pausing them rational. Candidates, and these are candidates, not your answer: a promised date the bench could not meet. A custom request accepted with no idea how long it takes. A product left orderable after the maker was already full. Overtime and broken pieces from saying yes too often. Pick the one the founder would recognize, label it assumed if you did not see it, and demote the rest to friction. A charter that tries to fix ads, branding, and expansion in the first release has not chosen.
 
-## How to write this charter
+Every factual claim gets a label. Observed, or assumed. "You shipped payments, delivery, and inventory" can be observed, because you did that work. "The bench can finish twenty pairs a day" is assumed unless someone showed you a count. An unlabelled claim is a failure of the page, not a style nit. If a number is not yours to publish, do not put it on the page. You can be specific without disclosing the studio's finances.
 
-The project is a one-page delivery charter for the first release of Promise Desk, for Mato Crafts. One page, because if it does not fit, you have not decided. Four readers have to recognize themselves: the founder, a maker, you as the engineer, and a future person who has to trust the limit when a recommendation is wrong. At this studio the fourth person might also be the founder. Write it so a skeptical friend can still find that concern on the page.
+The people room has no single user. Subhechha wants the studio to grow, and she has already shown she will turn demand off rather than break the work. She needs a way to say yes again without that fear. She can veto anything. A maker wants a day that can be finished. A new tool that adds a form and removes nothing will be ignored, and ignoring it is a real veto. A customer wants a date they can trust, and a custom piece that matches what they asked for. They are not in the room. They still constrain the release. A faster checkout that lies about timing is a worse store. You want a system you can leave behind. Write the conflict. The founder can want the ads back on in the same week a maker wants the queue frozen. The charter does not dissolve that with cheerful wording. It states it, and the first release picks a side for now, with a reason.
 
-I am going to walk the parts. I will give you the standard for each part. I will not give you the finished paragraphs.
+The measure room has exactly one number. The test for it is simple. Could the studio compute it this month, from something that already exists or could be counted by hand, and would the founder recognize it as the thing that matters? Good shapes, still not your sentence: the share of accepted orders that meet the date someone actually promised. The number of orders accepted in a week that the bench cannot start. The time from a custom request to a human yes or no. Bad shapes: improve efficiency, grow the brand, model accuracy. Accuracy is a trap. There is no labelled truth for which handmade order should have been accepted. Two makers might disagree. You would spend the work scoring a model instead of protecting the promise. Measure the workflow. If today's number is unknown, write that, and make establishing it the first task. Do not invent a baseline to look rigorous.
 
-### The problem, before the solution
+The boundary room is three lists. What the first release does. What it does not do. What still requires a human. The third list is the one that saves you. A honest direction, which you may reject if your failure statement demands it: Promise Desk may show that the bench is full, and may suggest whether a new order can be promised. A human accepts, changes, or refuses the promise before the customer is told. No automatic yes. No automatic refund. No automatic ad spend. Non-goals are mandatory, and each one needs a reason from risk, evidence, or sequence. Not from what you feel like building. Likely non-goals, for you to accept or replace: replacing the current store, turning the ads back on, designing new products, letting a model reply to a customer. Someone will ask for each of these. A written non-goal turns the argument into a reference. A non-goal is a schedule with a reason. It is not an insult to the founder.
 
-Write the current workflow as it actually happens, ugly parts included. You know some of it from the delivery. The studio sells handmade pieces through a live store. The store has a catalog, custom orders, a cart, payments, delivery, and a way to show that something is sold out. Makers produce the pieces by hand. Ads were paused because demand outran manufacturing.
+The roles room is a matrix. Rows for the founder, a maker, you, whoever can stop a deploy or an ad change if that is not already you, and Promise Desk itself. For each row: what they decide, what they do, and where they escalate. The system's row must contain a prohibition, not only a capability. Finish this thought in your own words. It may suggest a promise, and a person must confirm it before a customer is told. If you cannot write the prohibition, you are not ready to build. Separate deciding from doing. The founder may decide that a design is in bounds. A maker does the making. You may build the check. You do not decide the brand's taste. Do not give yourself the business risk. It feels like ownership. It is how you end up accountable for a late pair you had no authority to refuse.
 
-You do not know, unless you have watched it, the exact afternoon path. Do not smooth that into a story about email inboxes borrowed from a logistics company. Write "unknown" where it is unknown. A charter that invents a warehouse process you have not seen is worse than a short one.
+The risks room holds three risks. Each one needs the evidence that would retire it. Here is the shape of one, so you can hear the difference between anxiety and a research task. Risk: makers will not trust the suggestion, and will keep the notebook they already use. Evidence that retires it: in a week you actually watch, they accept or amend the suggestion on real orders, rather than ignoring it. Your other two should come from this studio. Personal data in an order note. A checkout that still says yes while the desk says no. You being the only person who can change the system. Pick risks that, if they came true, would recreate the costly failure. A risk that would apply to any website is not a risk for this charter.
 
-Then separate the symptom from the costly failure. "Ads were paused" is observed. It is a symptom. The costly failure is the thing that made pausing them rational. Candidates, and these are candidates, not your answer: a promised date the bench could not meet; a custom request accepted with no idea how long it takes; a product left orderable after the maker was already full; overtime and broken pieces from saying yes too often. Pick the one the founder would recognize as the reason, label it assumed if you did not see it, and demote the rest to friction. A charter that tries to fix ads, branding, and international expansion in release one has not chosen.
+Let me label three sentences the way the page has to label them, so the habit is in your ear before you write. First sentence: Mato Crafts sells handmade polymer-clay earrings from a shop at Patan Dhoka, and you shipped the store that takes payment and delivery. That one is observed. You did the work, and the shop is public. Second sentence: the ads were paused because orders got ahead of what the makers could finish. Also observed, from the delivery itself. It is still a symptom, not the failure underneath. Third sentence: the bench can finish twenty pairs on a normal day, and custom requests sit in a notebook by the oven. That one is assumed, unless you have stood there and counted. If you put it on the page without the label, you have started inventing the studio in order to sound precise. Precise and invented is worse than short and honest. Do this to every sentence you write. Observed, assumed, or unknown. [pause]
 
-Every factual claim gets a label. Observed or assumed. "You shipped payments, delivery, and inventory" can be observed, because you did that work. "The bench can finish twenty pairs a day" is assumed unless someone showed you a count. Unlabelled claims are failures, not style issues. This is how you keep a public story about a real studio from drifting into fiction. If a number is not yours to publish, do not put it on the page. The charter can be specific without being a financial disclosure.
+What finished sounds like, without handing you the sentences. The page opens on the studio as it is. Handmade pieces. A live store you already shipped. A bench with a finite day. Ads paused when orders outran making. Claims labelled. Unknowns left unknown. It names one costly failure. It names the conflict between growth and a finishable day. It has one measure, and it admits if today's value is not on record. It has three lists. It has a matrix whose system row can refuse. It has three risks with finish lines. A founder can explain the first release in two minutes without saying a framework, a model, or a vendor. A maker can see they are not being automated out of the promise. You can see what you are not allowed to decide.
 
-### The users, in the plural
+If your page is a transcript of this chapter, it fails. The reasoning is here. The sentences have to be yours, because you are the one who will defend them when the first awkward order arrives. [pause]
 
-There is no "the user."
+## How the page goes wrong
 
-Subhechha wants the studio to grow, and she has already shown she will turn demand off rather than break the work. She needs a way to say yes again without that fear. She can veto anything.
-
-A maker wants a day that can be finished. A new tool that adds a form and removes nothing will be ignored. Ignoring it is a successful veto.
-
-A customer wants a date they can trust, and a custom piece that matches what they asked for. They are not in the room. They still constrain the release. A faster checkout that lies about timing is a worse store.
-
-You want a system you can leave behind. You also want a reusable core, because the next studio should not require a fork of Mato's exceptions.
-
-Write the conflict. The founder can want ads back on in the same week a maker wants the queue frozen. The charter does not resolve that by cheerfulness. It states it, and the first release picks a side for now, with a reason.
-
-### One outcome
-
-One measure. The test: could the studio compute it this month, from something that already exists or could be counted by hand, and would the founder recognize it as the thing that matters?
-
-Good shapes, still not your sentence: the share of accepted orders that meet the date someone actually promised; the number of orders accepted in a week that the bench cannot start; the time from a custom request to a human yes or no. Bad shapes: "improve efficiency," "grow the brand," "model accuracy." Accuracy is a trap here. There is no labelled ground truth for which handmade order "should" have been accepted. Two makers might disagree. You would spend the pilot scoring the model instead of protecting the promise. Measure the workflow. Leave model quality for the evaluation chapter, later.
-
-If today's number is unknown, write that, and make establishing it task one. Do not invent a baseline to look rigorous.
-
-### The release boundary
-
-Three lists. What the first release does. What it does not do. What still requires a human.
-
-The third list saves you. A honest direction, which you may reject if your problem statement demands it: Promise Desk may show that the bench is full, and may suggest whether a new order can be promised. A human accepts, changes, or refuses the promise before the customer is told. No automatic yes. No automatic refund. No automatic ad spend.
-
-Non-goals are mandatory, and each one needs a reason from risk, evidence, or sequence. Not from what you feel like building. Likely non-goals, for you to accept or replace: replacing the current store; turning ads back on; designing new products; shipping abroad; letting a model reply to a customer. Someone will ask for each of these. A written non-goal turns the argument into a reference.
-
-A non-goal is a schedule with a reason. It is not an insult to the founder.
-
-### The responsibility matrix
-
-Rows for: the founder, a maker, you, whoever administers the store and the ads if that is not already you, and Promise Desk itself.
-
-For each row: what they decide, what they do, and where they escalate.
-
-The system's row must contain a prohibition, not only a capability. Finish this thought in your own words: it may suggest a promise, and a person must confirm it before a customer is told. If you cannot write the prohibition, you are not ready to build.
-
-Separate deciding from doing. The founder may decide that a design is in bounds. A maker does the making. You may build the check. You do not decide the brand's taste. Do not give yourself the business risk. It is flattering and it is how you end up accountable for a late pair you had no authority to refuse.
-
-### The risks, with evidence
-
-Three is enough. Each risk needs the evidence that would retire it.
-
-I will give you the shape of one, so you can hear the difference between anxiety and a research task. Risk: makers will not trust the suggestion and will route around it with the notebook they already use. Evidence that retires it: in a week you actually watch, they accept or amend the suggestion on real orders, rather than ignoring it.
-
-Your other two should come from this studio, not from a generic software list. Personal data in an order note. A checkout that still says yes while the desk says no. You being the only person who can change the system. Pick risks that, if they came true, would recreate the costly failure. A risk that would apply to any website is not a risk for this charter. [pause]
-
-## What done sounds like, without handing you the page
-
-A finished charter opens on the studio as it is. Handmade pieces, a live store you already shipped, a bench with a finite day, ads paused when orders outran making. Claims labelled. Unknowns left unknown.
-
-It names one costly failure, not five, and it does not pretend the failure is "we need a better brand."
-
-It names the conflict between growth and a finishable day.
-
-It has one measure, and it admits if today's value is not on record.
-
-It has three lists: does, does not, still needs a human.
-
-It has a matrix whose system row can refuse. It has three risks with finish lines.
-
-A founder can explain the first release in two minutes without saying a framework, a model, or a vendor. A maker can see they are not being automated out of the promise. You can see what you are not allowed to decide.
-
-If your page is a transcript of this chapter, it fails. The reasoning is here. The sentences have to be yours, because you are the one who will have to defend them when the first awkward order arrives. [pause]
-
-## How this goes wrong
+Five ways this work fails. Listen for the one you are most likely to commit.
 
 The solution-shaped charter. The page describes a bot, a database, a dashboard. Delete every implementation noun. If the problem disappears with them, start again from the bench.
 
-The everything charter. Ads, a new store, custom design tools, international shipping, a full factory planner. Ambition here is a narrow release that lands. The pause already taught you what happens when the surface gets ahead of the hands.
+The everything charter. Ads, a new store, custom design tools, international shipping, a full factory plan. Ambition here is a narrow release that lands. The pause already taught you what happens when the surface gets ahead of the hands.
 
-The unfalsifiable outcome. Satisfaction, "vibes," a usage count. If the number cannot go down, it cannot be trusted when it goes up.
+The unfalsifiable outcome. Satisfaction, a mood, a usage count. If the number cannot go down, you cannot trust it when it goes up.
 
-The invisible human. The page implies the desk tells the customer yes. That is the failure mode you are here to make impossible.
+The invisible human. The page implies the desk tells the customer yes. That is the failure you are here to make impossible.
 
-The stakeholder you flattened. You wrote "the client" and never separated the founder who wants demand from the maker who has to meet it. Week three, the tool is unused, and you are surprised.
+The flattened client. You wrote "the client" and never separated the founder who wants demand from the maker who has to meet it. Later, the tool is unused, and you are surprised.
 
-The model-shaped charter. Delete every sentence about intelligence and automation. If no problem remains, you brought a technology looking for a studio.
+And one that is specific to you. The launch charter. It describes a successful relaunch of the website. That is the job you have already done. This course starts where that job stopped. [pause]
 
-And one that is specific to you. The agency charter. It describes a successful relaunch of the website. That is the job you have already done. This course starts where that job stopped. [pause]
+## How you check it
 
-## How you check the page
+This is a writing chapter, so the checks have to be things you can do out loud.
 
-The two-minute test. Explain the first release out loud as if to Subhechha. No service, no model, no stack. If you cannot, the charter is a build plan.
+The two-minute test. Explain the first release as if to Subhechha. No service, no model, no stack. If you cannot, the charter is a build plan.
 
 The disagreement test. Find two wants that do not fit. If you cannot, you wrote a brochure.
 
 The veto test. Who can stop this? The founder, yes. Who else, including a maker who simply does not use it? Each of them needs a path to yes.
 
-The measurement test. How would you compute today's value with what the studio already has, even if that is a notebook? If the answer is "we cannot yet," that sentence belongs on the page.
+The measurement test. How would you compute today's value with what the studio already has, even if that is a notebook? If the answer is that nothing records it yet, that sentence belongs on the page.
 
-The prohibition test. Read the system's row. It needs a clear "may not."
+The prohibition test. Read the system's row. It needs a clear may-not.
 
-The quiet test. Hand the page to someone who did not hear this chapter. Ask what the first release does, and who is accountable when a customer is told a date the bench cannot meet. Stay silent while they read. Whatever they miss is the document.
+The quiet test. Hand the page to someone who has not heard this chapter. Ask what the first release refuses to do, and who is accountable when a customer is told a date the bench cannot meet. Stay silent while they read. Whatever they miss is the document.
 
-The fiction test, because this customer is real. Read every sentence and mark it observed or assumed. If a sentence would embarrass you when read back to the founder because you guessed their internals, it is assumed, or it comes off the page. Do not publish their finances. You do not need a revenue figure to name the operational problem. [pause]
+The fiction test, because this customer is real. Read every sentence and mark it observed or assumed. If a sentence would embarrass you when read back in the shop, because you guessed their internals, it is assumed, or it comes off the page. Do not publish their finances. You do not need a revenue figure to name the operational problem. [pause]
 
 ## Your project
 
-The written guide has the situation brief, the constraints, and the rubric. The brief is the input. You do not invent a company, and you do not switch customers. Mato Crafts is the customer for this course unless we deliberately change it later.
+The written guide has the situation brief, the constraints, and the rubric. The brief is the input. You do not invent a company, and you do not switch customers. Mato Crafts is the customer.
 
-You will write three artifacts: a one-page charter, a responsibility matrix that includes Promise Desk and everyone who can block a decision, and a risk register where each risk has the evidence that would retire it. Put them in the chapter one folder of the field workspace. They are yours to commit when you want them in this repo. Do not commit customer personal data, payment details, or ad-account access.
+You will write three things. A one-page charter. A responsibility matrix that includes Promise Desk and everyone who can block a decision. A risk register where each risk has the evidence that would retire it. Put them in the chapter one folder of the field workspace. They are yours to commit when you want them in the repo. Do not commit customer personal data, payment details, or ad-account access.
 
-Constraints, so you hear them before you open the guide. One page. No implementation detail. Every claim labelled. Non-goals required. One measure the studio could actually compute. The system gets a prohibition. You do not grade yourself generously.
+The constraints, so you hear them before you open the guide. One page. No implementation detail. Every claim labelled. Non-goals required. One measure the studio could actually compute. The system gets a prohibition. You do not grade yourself generously.
 
-There is no code in this chapter. There is no starter file with the answer hiding in it. The empty page is the starting state. That is still how the work begins. The difference from last time is that the studio is specified, so your effort goes into judgment, not into world-building. [pause]
+There is no code in this chapter. There is no starter file with the answer hiding in it. The empty page is the starting state. The studio is specified, so your effort goes into judgment. [pause]
 
-## What you carry forward
+## What you carry
 
-A forward deployed engineer is accountable for an outcome inside the customer's environment, and the environment is an input. Yours, this time, is a handmade studio whose store you already shipped.
+You are still moving, so here is the hour again, in the order you can replay if a part slipped.
 
-The role sits between a reusable core, the promise already made, the accounts the shop runs on, and the people who make and sell the work. At Mato those are not four departments. They are still four kinds of responsibility, and blurring them is how a checkout becomes a lie.
+The studio. Handmade earrings in Patan. A store you already shipped. Ads paused because the bench could not keep up. That pause is a symptom. Promise Desk is the limit on the promise, not a second website.
 
-Coming from agency delivery, your specific shift is from "the site launched" to "the bench can keep the promise the site makes." Noticing a wrong scope is part of the job.
+The role. You build inside their environment, and you are accountable for an outcome. At this shop the environment you do not yet know is the bench, not the checkout. The system has to work after you leave.
 
-An unwritten assumption waits until it is expensive. Yours to kill on paper, today, is that a working store is the same thing as a keepable promise.
+Who decides. A reusable core. The promise the store already made. The accounts, which may be you. The founder and the makers, who can want opposite things on the same day. And Promise Desk, which may suggest and may not tell a customer yes.
 
-The charter is one page, four readers, one failure, one measure, three lists, a matrix with a prohibition, three risks with evidence.
+Your shift. A launched site is not the end of the job. If the scope never mentioned a keepable date, noticing that is part of the work. Then you narrow the first release so you do not accidentally take over the studio.
 
-Chapter two, when we retarget it, will take this charter as its input. You will implement one small promise rule, the same rule, in more than one language, and defend which runtime a studio like this would actually run. The audio that is in the repo tonight for chapter two is still the old logistics episode. Do not do that project against the old company. Finish this charter. We will rebuild chapter two on top of it.
+The failure. A yes from the checkout, a full bench, a slipped date, demand turned off. The missing sentence is who is allowed to promise.
 
-That is chapter one. Go write the page.
+The page. Six rooms. Failure, people, measure, boundary, roles, risks. One page. Labels on every claim. One number the studio could count. A human between the suggestion and the customer.
+
+Whatever you build next starts from this page. Go write it.

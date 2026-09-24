@@ -1,6 +1,6 @@
 # World plan
 
-Notes for chapters that do not exist yet. Not a lesson. Chapters 2–38 of the first draft were moved to [`archive/draft/`](../archive/draft/README.md) on 2026-09-24. They are reference only. A new chapter is written when Kushal asks for it.
+Author notes. Not part of the lesson. A new chapter is written when Kushal asks for it.
 
 ## Decision
 
@@ -8,11 +8,9 @@ The course customer is **Mato Crafts** (Patan Dhoka, Lalitpur). Handmade polymer
 
 The accumulating system is **Promise Desk**. Release one only protects a promise the bench can keep. The existing store stays.
 
-Harborline Logistics and FieldOps Copilot are archived. Chapter 1 audio and text from that draft live in [`archive/harborline/`](../archive/harborline/).
-
 ## Ncell, later
 
-"Enso" in the first briefing was Ncell, the Nepal telecom. Kushal confirmed that on 2026-09-22. It is a possible later scenario, not the spine of this course. Chapter 1 stays on Mato Crafts, because that is a studio he has already shipped for. A Ncell chapter would be a new customer environment, written only when he asks for it, with the same rule: do not invent their operations.
+Ncell, the Nepal telecom, is a possible later scenario. It is not the spine of this course. A Ncell chapter would be a new customer environment, written only when he asks for it, with the same rule: do not invent their operations.
 
 ## Facts we will not invent
 
@@ -39,22 +37,20 @@ Each project should be something he can commit. Chapter 1's place is `fieldops/0
 
 ## Next chapter, only when asked
 
-Do not revive the archived chapter 2 as the assignment. If a next chapter is requested after the charter exists, the likely shape is one promise rule taken from that charter, implemented in more than one runtime, with a written choice of which runtime this studio would actually run, plus a syntax and file-structure explanation.
+Do not start a second chapter until the charter exists. If one is requested, the likely shape is one promise rule taken from that charter, implemented in more than one runtime, with a written choice of which runtime this studio would actually run, plus a syntax and file-structure explanation.
 
-## Sketch kept from the old draft
+## Later beats, not assigned
 
-Same skills, new subject. Rough map from the old FieldOps exercises onto Promise Desk:
+Same studio. Rough map for when a chapter is requested:
 
-| Old beat | Promise Desk beat |
+| Beat | Promise Desk |
 | --- | --- |
-| Incident intake | An order or custom request arriving |
-| Priority rule | Can the bench promise this, by when |
-| Intake CLI | Record one request and get a yes, no, or needs-a-human |
-| Operator UI | A maker or founder confirms the promise |
-| API as authority | The site must not be the only thing allowed to say yes |
-| Audit log | Who promised the date |
-| AI suggestion | Suggest only. A human sends the answer |
-| Eval | Did we recreate the "checkout says yes, bench is full" failure |
-| Handoff | The studio can run the desk without Kushal in the thread |
-
-Rewrite a chapter only when asked, and only when its lesson, guide, and audio are written together for Mato Crafts. The archived files stay in the archive.
+| An order arriving | Intake of a catalog order or a custom request |
+| A promise rule | Can the bench promise this, by when |
+| A local command | Record one request and get a yes, no, or needs-a-human |
+| A confirmation screen | A maker or the founder confirms the promise |
+| One authority | The site must not be the only thing allowed to say yes |
+| A record | Who promised the date |
+| A suggestion | Suggest only. A human sends the answer |
+| A check | Did we recreate "checkout says yes, bench is full" |
+| A handoff | The studio can run the desk without Kushal in the thread |
